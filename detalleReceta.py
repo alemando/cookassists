@@ -5,28 +5,25 @@ class DetalleReceta:
     ListDetalleRecetas = []
 
     def __init__(
-        self, numero, cantidad, 
+        self, cantidad, 
         producto, receta):
         '''ATTRIBUTES
-            self._numero
+            self._codigo
             self._cantidad
             self._producto
             self._receta
         '''
-        self.set_numero(numero)
+        self.set_codigo(receta.get_codigo()+'-'+producto.get_codigo())
         self.set_cantidad(cantidad)
         self.set_producto(producto)
         self.set_receta(receta)
         DetalleReceta.ListDetalleRecetas.append(self)
 
     def get_codigo(self):
-        return '%d-%s'%(self.get_receta.get_codigo(), self.get_numero)
+        return self._codigo
 
-    def set_numero(self, numero):
-        self._numero = numero
-
-    def get_numero(self):
-        return self._numero
+    def set_codigo(self, codigo):
+        self._codigo = codigo
 
     def set_cantidad(self, cantidad):
         self._cantidad = cantidad

@@ -82,6 +82,7 @@ class Mensajes:
     'formatoProducto' : '''
     Código: %s
     Nombre: %s
+    Categoria: %s
     Cantidad: %d %s
     Necesario: %s
     ''',
@@ -176,6 +177,7 @@ class Mensajes:
     'formatoProducto' : '''
     Code: %s
     Name: %s
+    Category: %s
     Quantity: %d %s
     Required: %s
     ''',

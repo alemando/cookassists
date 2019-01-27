@@ -9,7 +9,7 @@ class Producto:
             self, nombre, categoria, cantidad,
             medicion, necesario):
         '''ATTRIBUTES
-            self._id
+            self._codigo
             self._nombre
             self._cantidad
             self._categoria
@@ -27,7 +27,7 @@ class Producto:
         self.set_necesario(necesario)
         Producto.ListProductos.append(self)
 
-    def set_codigo(self, id):
+    def set_codigo(self, codigo):
         self._codigo = codigo
 
     def get_codigo(self):
