@@ -45,10 +45,10 @@ class DetalleReceta:
 
     def toString(self):
         Str = Mensajes.men.get('formatoDetalleReceta') % (
-            self.get_codigo(), 
-            self.producto.get_nombre(), self.get_cantidad())
+            self.get_codigo(), self.get_producto().get_nombre(), 
+            self.get_cantidad(), self.get_producto().get_medicion())
         return Str
-
+'''
     @staticmethod
     def get_posicion_lista(codigo):
         for i in range(0,len(DetalleReceta.ListDetalleRecetas)):
@@ -60,3 +60,4 @@ class DetalleReceta:
     @staticmethod
     def delete_element(posicion):
         DetalleReceta.ListDetalleRecetas.pop(posicion)
+'''

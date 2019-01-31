@@ -88,14 +88,15 @@ class Producto:
                 return producto
         return None
 
-    @staticmethod
+    '''@staticmethod
     def get_posicion_lista(codigo):
         for i in range(0,len(Producto.ListProductos)):
             if Producto.ListProductos[i].get_codigo() == codigo:
                 return i
                 break
         return -1
-
-    @staticmethod
+'''
+    '''@staticmethod
     def delete_element(posicion):
         Producto.ListProductos.pop(posicion)
+'''

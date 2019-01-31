@@ -86,6 +86,28 @@ class Mensajes:
     Cantidad: %d %s
     Necesario: %s
     ''',
+    'formatoDetalleReceta' : '''
+    Código: %s
+    Nombre: %s
+    Cantidad: %d %s
+    ''',
+    'formatoReceta' : '''
+    Código: %s
+    Nombre: %s
+    Tiempo: %d
+    ''',
+    'formatoDetallePedido' : '''
+    Código: %s
+    Nombre: %s
+    Cantidad: %d
+    ''',
+    'formatoPedido' : '''
+    Código: %s
+    fecha: %s
+    descripcion: %s
+    usuario: %s
+    chef: %s
+    ''',
     'nombre' : 'Digite el nombre: ',
     'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',
     'contrasena' : 'Digite la contraseña: ',

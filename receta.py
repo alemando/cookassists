@@ -62,8 +62,10 @@ class Receta:
             self.get_codigo(), self.get_nombre(),
             self.get_tiempo_preparacion())
         #concatenado el detalle receta
+        for detalle in _ListDetalleRecetas:
+            Str+= detalle.toString()
         return Str
-
+'''
     @staticmethod
     def get_producto_by_codigo(codigo):
         for producto in Producto.ListProductos:
@@ -82,3 +84,4 @@ class Receta:
     @staticmethod
     def delete_element(posicion):
         Producto.ListProductos.pop(posicion)
+'''
