@@ -1,7 +1,7 @@
 import os
 
 from mensajes import Mensajes
-#from datos import Datos
+from datos import Datos
 #from usuario import Usuario
 #from calificacion import Calificacion
 #from Receta import Receta
@@ -96,7 +96,7 @@ class CookAssist:
     def cambiar_idioma():
         opcion = input(Mensajes.texto_idioma)
         if opcion == '1':
-            Mensajes.men = Mensajes.español
+            Mensajes.men = Mensajes.espanol
         elif opcion == '2':
             Mensajes.men = Mensajes.ingles
         else:
@@ -210,7 +210,8 @@ class CookAssist:
 
     @staticmethod
     def agregar_datos_ficticios():
-        pass
+        Datos.generarProductos()
+        
 
 
     @staticmethod
@@ -245,13 +246,15 @@ class CookAssist:
         }
         return menu_producto.get(opcion)
     
-     @staticmethod
+    @staticmethod
     def ver_producto():
         CookAssist.mensaje('ver_producto')
         opcion = input(CookAssist.mensaje('opcion', False))
         if opcion == '1':
+            pass
             
         elif opcion == '2':
+            pass
 
     @staticmethod
     def agregar_producto():
@@ -264,7 +267,7 @@ class CookAssist:
     @staticmethod
     def run():
 
-        Mensajes.men = Mensajes.español
+        Mensajes.men = Mensajes.espanol
 
         while True:
             CookAssist.mensaje('menu')

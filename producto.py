@@ -7,7 +7,7 @@ class Producto:
 
     def __init__(
             self, nombre, categoria, cantidad,
-            medicion, necesario):
+            necesario, medicion):
         '''ATTRIBUTES
             self._codigo
             self._nombre
@@ -15,16 +15,18 @@ class Producto:
             self._categoria
             self._medicion
             self._necesario
+            self._descontinuado
         '''
         self._ListDetallePedidos = []
         self._ListDetalleRecetas = []
-        auto_increment_codigo += 1
-        self.set_codigo(str(auto_increment_codigo))
+        Producto.auto_increment_codigo += 1
+        self.set_codigo(str(Producto.auto_increment_codigo))
         self.set_nombre(nombre)
         self.set_categoria(categoria)
         self.set_cantidad(cantidad)
         self.set_medicion(medicion)
         self.set_necesario(necesario)
+        self.set_cantidad(False)
         Producto.ListProductos.append(self)
 
     def set_codigo(self, codigo):
@@ -62,6 +64,12 @@ class Producto:
 
     def get_necesario(self):
         return self._necesario
+
+    def set_descontinuado(self, descontinuado):
+        self._descontinuado = descontinuado
+
+    def get_descontinuado(self):
+        return self._descontinuado
 
     def set_detalle_pedidos(self, detalle_pedido):
         self._ListDetallePedidos.append(detalle_pedido)

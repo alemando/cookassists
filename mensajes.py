@@ -10,7 +10,7 @@ class Mensajes:
     2. Ingles(english)
     Seleccione / Select an option: '''
 
-    español = {
+    espanol = {
     'menu' : '''
     Menú
     1. Menu Usuarios
