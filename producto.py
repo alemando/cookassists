@@ -7,30 +7,34 @@ class Producto:
 
     def __init__(
             self, nombre, categoria, cantidad,
-            necesario, medicion):
+            necesario, medicion, ilimitado):
         '''ATTRIBUTES
+            self._ListDetallePedidos
+            self._ListDetalleRecetas
             self._codigo
             self._nombre
             self._cantidad
             self._categoria
             self._medicion
             self._necesario
+            self._ilimitado
             self._descontinuado
         '''
         self._ListDetallePedidos = []
         self._ListDetalleRecetas = []
-        Producto.auto_increment_codigo += 1
-        self.set_codigo(str(Producto.auto_increment_codigo))
+        self.set_codigo()
         self.set_nombre(nombre)
         self.set_categoria(categoria)
         self.set_cantidad(cantidad)
-        self.set_medicion(medicion)
         self.set_necesario(necesario)
-        self.set_cantidad(False)
+        self.set_medicion(medicion)
+        self.set_ilimitado(ilimitado)
+        self.set_descontinuado(False)
         Producto.ListProductos.append(self)
 
-    def set_codigo(self, codigo):
-        self._codigo = codigo
+    def set_codigo(self):
+        codigo = Producto.get_proximo_codigo()
+        self._codigo = str(codigo)
 
     def get_codigo(self):
         return self._codigo
@@ -42,30 +46,64 @@ class Producto:
         return self._nombre
 
     def set_categoria(self, categoria):
+        if categoria == "1":
+            categoria = "Basicos"
+        elif categoria == "2":
+            categoria = "Pastas"
+        elif categoria == "3":
+            categoria = "Liquidos"
+        elif categoria == "4":
+            categoria = "Snacks"
+        elif categoria == "5":
+            categoria = "Bebidas"
         self._categoria = categoria
 
     def get_categoria(self):
         return self._categoria
 
     def set_cantidad(self, cantidad):
-        self._cantidad = cantidad
+        self._cantidad = int(cantidad)
 
     def get_cantidad(self):
         return self._cantidad
 
-    def set_medicion(self, medicion):
-        self._medicion = medicion
-
-    def get_medicion(self):
-        return self._medicion
-
     def set_necesario(self, necesario):
+        if necesario == "1":
+            necesario = True
+        else:
+            necesario = False
         self._necesario = necesario
 
     def get_necesario(self):
         return self._necesario
 
+    def set_medicion(self, medicion):
+        if medicion == "1":
+            medicion = "N/A"
+        elif medicion == "2":
+            medicion = "ml"
+        elif medicion == "3":
+            medicion = "gr"
+        self._medicion = medicion
+
+    def get_medicion(self):
+        return self._medicion
+
+    def set_ilimitado(self, ilimitado):
+        if ilimitado == "1":
+            ilimitado = True
+        else:
+            ilimitado = False
+        self._ilimitado = ilimitado
+
+    def get_ilimitado(self):
+        return self._ilimitado
+
     def set_descontinuado(self, descontinuado):
+        if descontinuado == "1":
+            descontinuado = True
+        else:
+            descontinuado = False
         self._descontinuado = descontinuado
 
     def get_descontinuado(self):
@@ -83,10 +121,27 @@ class Producto:
     def get_detalle_recetas(self):
         return self._ListDetalleRecetas
 
+    @staticmethod
+    def get_proximo_codigo():
+        Producto.auto_increment_codigo += 1
+        return Producto.auto_increment_codigo
     def toString(self):
+        codigo = self.get_codigo() 
+        nombre = self.get_nombre()
+        categoria = self.get_categoria()
+        cantidad = str(self.get_cantidad())
+        ilimitado = self.get_ilimitado()
+        if ilimitado: 
+            cantidad = "Ilimitado"
+        medicion = self.get_medicion()
+        necesario = self.get_necesario()
+        if necesario :
+            necesario = "Si"
+        else:
+            necesario = "No"
         Str = Mensajes.men.get('formatoProducto') % (
-            self.get_codigo(), self.get_nombre(), self.get_categoria(),
-            self.get_cantidad(), self.get_medicion, self.get_necesario())
+            codigo, nombre, categoria,
+            cantidad, medicion, necesario)
         return Str
 
     @staticmethod
@@ -95,16 +150,17 @@ class Producto:
             if producto.get_codigo() == codigo:
                 return producto
         return None
-
-    '''@staticmethod
+'''
+    @staticmethod
     def get_posicion_lista(codigo):
         for i in range(0,len(Producto.ListProductos)):
             if Producto.ListProductos[i].get_codigo() == codigo:
                 return i
                 break
         return -1
-'''
-    '''@staticmethod
-    def delete_element(posicion):
+
+    @staticmethod
+    def delete_element(codigo):
+        posicion = Producto.get_posicion(codigo) 
         Producto.ListProductos.pop(posicion)
 '''

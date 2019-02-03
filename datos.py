@@ -7,15 +7,14 @@ from producto import Producto
 class Datos:
 
     def generarProductos():
-        Producto("Agua", "Liquidos", "infinita", True, "ml")
-        #Que hacer con el agua?
-        Producto("Sal", "Basicos", 1000, True, "gr")
-        Producto("Azucar", "Basicos", 1000, True, "gr")
-        Producto("Botella de agua", "Bebidas", 10, True, "Botella(s)")
-        Producto("Spaghetti", "pastas", 100, True, "gr")
-        Producto("Leche", "Liquidos", 1000, True, "ml")
-        Producto("Mantequilla", "Basicos", 1000, True, "gr")
-        Producto("Chocolatina", "Snacks", "infinita", True, "N/A")
+        Producto("Agua", "3", 0, "1", "2", "1")
+        Producto("Sal", "1", 1000, "1", "3", "2")
+        Producto("Azucar", "1", 1000, "1", "3", "2")
+        Producto("Botella de agua", "Bebidas", 10, "1", "1", "2")
+        Producto("Spaghetti", "2", 100, "1", "3", "2")
+        Producto("Leche", "3", 1000, "1", "2", "2")
+        Producto("Mantequilla", "1", 1000, "1", "2", "2")
+        Producto("Chocolatina", "4", 10, "1", "1", "2")
 '''
     @staticmethod
     def generarComentarios(cant):

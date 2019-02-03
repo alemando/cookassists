@@ -9,7 +9,7 @@ from producto import Producto
 
 
 class CookAssist:
-
+    
     def __init__(self):
         pass
 
@@ -238,7 +238,7 @@ class CookAssist:
         '''
         
     @staticmethod
-    def menu_producto():
+    def menu_producto(opcion):
         menu_producto = {
             '1': CookAssist.ver_producto,
             '2': CookAssist.agregar_producto,
@@ -251,14 +251,27 @@ class CookAssist:
         CookAssist.mensaje('ver_producto')
         opcion = input(CookAssist.mensaje('opcion', False))
         if opcion == '1':
-            pass
+            codigo = input(CookAssist.mensaje('codigo', False))
+            producto = Producto.get_producto_by_codigo(codigo)
+            if producto is not None:
+                print(producto.toString())
+                return producto
+            else:
+                CookAssist.mensaje('codeNotFound')
+                return None
             
         elif opcion == '2':
             pass
 
     @staticmethod
     def agregar_producto():
-        pass
+        nombre = input(CookAssist.mensaje('nombre', False))
+        categoria = input(CookAssist.mensaje('categoria', False))
+        cantidad = input(CookAssist.mensaje('cantidad', False))
+        necesario = input(CookAssist.mensaje('necesario', False))
+        medicion = input(CookAssist.mensaje('medicion', False))
+        ilimitado = input(CookAssist.mensaje('ilimitado', False))
+        Producto(nombre, categoria, cantidad, necesario, medicion, ilimitado)
 
     @staticmethod
     def editar_producto():

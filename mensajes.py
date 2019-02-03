@@ -71,7 +71,7 @@ class Mensajes:
     'opcion' : 'Ingrese una opcion: ',
     'opcionNoValida': '{0} no es una opcion valida',
     'salir' : 'Chaito',
-    'id' : 'Digite el numero de identificación: ',
+    'id' : 'Ingrese el numero de identificación: ',
     'userNotFound' : 'Usuario no encontrado',
     'formatoUsuario' : '''
     Tipo usuario: %s
@@ -79,11 +79,43 @@ class Mensajes:
     Identificación: %d
     Fecha nacimiento: %s
     ''',
+    #Mensajes de producto
+    'codigo' : 'Ingrese el codigo: ',
+    'categoria' : '''
+    Categoria:
+    Escoja una opcion
+    1. Basicos
+    2. Pastas
+    3. Liquidos
+    4. Snacks
+    5. Bebidas
+    Seleccione una opción: 
+    ''',
+    'cantidad' : 'Ingrese la cantidad: ',
+    'necesario' : '''
+    Es necesario?
+    1. Si
+    2. No
+    ''',
+    'medicion' : '''
+    Tipo de medicion:
+    Escoja una opcion
+    1. N/A
+    2. ml
+    3. gr
+    Seleccione una opción: 
+    ''',
+    'ilimitado' : '''
+    Ilimitado?
+    1. Si
+    2. No
+    ''',
+    'codeNotFound' : 'codigo no encontrado',
     'formatoProducto' : '''
     Código: %s
     Nombre: %s
     Categoria: %s
-    Cantidad: %d %s
+    Cantidad: %s %s
     Necesario: %s
     ''',
     'formatoDetalleReceta' : '''
@@ -108,6 +140,8 @@ class Mensajes:
     usuario: %s
     chef: %s
     ''',
+    #Mensaje usuario, producto
+    'yes' : 'Si',
     'nombre' : 'Digite el nombre: ',
     'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',
     'contrasena' : 'Digite la contraseña: ',
