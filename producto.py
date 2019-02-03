@@ -121,6 +121,20 @@ class Producto:
     def get_detalle_recetas(self):
         return self._ListDetalleRecetas
 
+    def editar_producto(self, opcion, valor):
+        if opcion == '1':
+            self.set_nombre(valor)
+        elif opcion == '2':
+            self.set_categoria(valor)
+        elif opcion == '3':
+            self.set_cantidad(valor)
+        elif opcion == '4':
+            self.set_necesario(valor)
+        elif opcion == '5':
+            self.set_medicion(valor)
+        elif opcion == '6':
+            self.set_ilimitado(valor)
+
     @staticmethod
     def get_proximo_codigo():
         Producto.auto_increment_codigo += 1

@@ -236,7 +236,8 @@ class CookAssist:
         CookAssist.mensaje('opcionesDetalleReceta')
         opcion = input(CookAssist.mensaje('opcion', False))
         '''
-        
+    
+    #Producto
     @staticmethod
     def menu_producto(opcion):
         menu_producto = {
@@ -275,7 +276,25 @@ class CookAssist:
 
     @staticmethod
     def editar_producto():
-        pass
+        producto = CookAssist.ver_producto()
+        if producto is not None:
+            CookAssist.mensaje('editar_producto')
+            opcion = input(CookAssist.mensaje('opcion', False))
+            valor = None
+            if opcion == '1':
+                valor = input(CookAssist.mensaje('nombre', False))
+            elif opcion == '2':
+                valor = input(CookAssist.mensaje('categoria', False))
+            elif opcion == '3':
+                valor = input(CookAssist.mensaje('cantidad', False))
+            elif opcion == '4':
+                valor = input(CookAssist.mensaje('necesario', False))
+            elif opcion == '5':
+                valor = input(CookAssist.mensaje('medicion', False))
+            elif opcion == '6':
+                valor = input(CookAssist.mensaje('ilimitado', False))
+            if opcion != '7':
+                producto.editar_producto(opcion, valor)
 
     @staticmethod
     def run():

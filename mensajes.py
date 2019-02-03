@@ -81,6 +81,16 @@ class Mensajes:
     ''',
     #Mensajes de producto
     'codigo' : 'Ingrese el codigo: ',
+    'editar_producto' : '''
+    Escoja una opcion a modificar:
+    1. Nombre
+    2. Categoria
+    3. cantidad
+    4. necesario
+    5. edicion
+    6. ilimitado
+    7. <-Atras
+    ''',
     'categoria' : '''
     Categoria:
     Escoja una opcion
