@@ -71,16 +71,6 @@ class CookAssist:
         }
         return menu_idioma.get(opcion)
 
-    @staticmethod
-    def menu_receta(opcion):
-        menu_calificacion = {
-            '1': CookAssist.ver_receta,
-            '2': CookAssist.agregar_receta,
-            '3': CookAssist.editar_calificacion,
-            '4': CookAssist.eliminar_calificacion
-        }
-        return menu_calificacion.get(opcion)
-
     '''if imprimir is True print a string
         if not return a string
     '''
@@ -212,7 +202,15 @@ class CookAssist:
     def agregar_datos_ficticios():
         Datos.generarProductos()
         
-
+    #Receta
+    @staticmethod
+    def menu_receta(opcion):
+        menu_receta = {
+            '1': CookAssist.ver_receta,
+            '2': CookAssist.agregar_receta,
+            '3': CookAssist.editar_receta,
+        }
+        return menu_receta.get(opcion)
 
     @staticmethod
     def ver_receta():
@@ -262,7 +260,19 @@ class CookAssist:
                 return None
             
         elif opcion == '2':
-            pass
+            nombre = input(CookAssist.mensaje('nombre', False))
+            producto = Producto.get_producto_by_nombre(nombre)
+            if len(producto) != 0:
+                CookAssist.mensaje('opcionesProducto')
+                for i in range(len(producto)):
+                    numero = str(i+1)
+                    print(numero +' '+ producto[i].get_codigo().zfill(6) +' '+ producto[i].get_nombre())
+                opcion = int(input(CookAssist.mensaje('opcion', False)))
+                print(producto[(opcion-1)].toString())
+                return producto
+            else:
+                CookAssist.mensaje('notMatch')
+
 
     @staticmethod
     def agregar_producto():

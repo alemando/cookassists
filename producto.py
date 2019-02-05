@@ -7,7 +7,7 @@ class Producto:
 
     def __init__(
             self, nombre, categoria, cantidad,
-            necesario, medicion, ilimitado):
+            necesario, medicion, ilimitado, descontinuado = False):
         '''ATTRIBUTES
             self._ListDetallePedidos
             self._ListDetalleRecetas
@@ -29,9 +29,9 @@ class Producto:
         self.set_necesario(necesario)
         self.set_medicion(medicion)
         self.set_ilimitado(ilimitado)
-        self.set_descontinuado(False)
+        self.set_descontinuado(descontinuado)
         Producto.ListProductos.append(self)
-
+    #codigo al ya estar creado
     def set_codigo(self):
         codigo = Producto.get_proximo_codigo()
         self._codigo = str(codigo)
@@ -65,10 +65,13 @@ class Producto:
         self._cantidad = int(cantidad)
 
     def get_cantidad(self):
-        return self._cantidad
+        if self.get_ilimitado():
+            return "Ilimitado"
+        else:
+            return self._cantidad
 
     def set_necesario(self, necesario):
-        if necesario == "1":
+        if necesario == '1':
             necesario = True
         else:
             necesario = False
@@ -78,19 +81,22 @@ class Producto:
         return self._necesario
 
     def set_medicion(self, medicion):
-        if medicion == "1":
-            medicion = "N/A"
-        elif medicion == "2":
-            medicion = "ml"
+        if medicion == '1':
+            medicion = 'N/A'
+        elif medicion == '2':
+            medicion = 'ml'
         elif medicion == "3":
-            medicion = "gr"
+            medicion = 'gr'
         self._medicion = medicion
 
     def get_medicion(self):
-        return self._medicion
+        if self._medicion == 'N/A':
+            return ''
+        else:
+            return self._medicion
 
     def set_ilimitado(self, ilimitado):
-        if ilimitado == "1":
+        if ilimitado == '1':
             ilimitado = True
         else:
             ilimitado = False
@@ -100,7 +106,7 @@ class Producto:
         return self._ilimitado
 
     def set_descontinuado(self, descontinuado):
-        if descontinuado == "1":
+        if descontinuado == '1':
             descontinuado = True
         else:
             descontinuado = False
@@ -139,14 +145,12 @@ class Producto:
     def get_proximo_codigo():
         Producto.auto_increment_codigo += 1
         return Producto.auto_increment_codigo
+        
     def toString(self):
         codigo = self.get_codigo() 
         nombre = self.get_nombre()
         categoria = self.get_categoria()
         cantidad = str(self.get_cantidad())
-        ilimitado = self.get_ilimitado()
-        if ilimitado: 
-            cantidad = "Ilimitado"
         medicion = self.get_medicion()
         necesario = self.get_necesario()
         if necesario :
@@ -164,6 +168,14 @@ class Producto:
             if producto.get_codigo() == codigo:
                 return producto
         return None
+
+    @staticmethod
+    def get_producto_by_nombre(nombre):
+        ListCoincidencias = []
+        for producto in Producto.ListProductos:
+            if producto.get_nombre().find(nombre) != -1:
+                ListCoincidencias.append(producto)
+        return ListCoincidencias
 '''
     @staticmethod
     def get_posicion_lista(codigo):

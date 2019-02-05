@@ -80,6 +80,7 @@ class Mensajes:
     Fecha nacimiento: %s
     ''',
     #Mensajes de producto
+    'opcionesProducto' : '# codigo nombre', 
     'codigo' : 'Ingrese el codigo: ',
     'editar_producto' : '''
     Escoja una opcion a modificar:
@@ -129,9 +130,7 @@ class Mensajes:
     Necesario: %s
     ''',
     'formatoDetalleReceta' : '''
-    Código: %s
-    Nombre: %s
-    Cantidad: %d %s
+    Código: %s Nombre: %s Cantidad: %s %s
     ''',
     'formatoReceta' : '''
     Código: %s
@@ -151,6 +150,7 @@ class Mensajes:
     chef: %s
     ''',
     #Mensaje usuario, producto
+    'notMatch' : 'Nó se encontraron coincidencias',
     'yes' : 'Si',
     'nombre' : 'Digite el nombre: ',
     'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',

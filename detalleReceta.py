@@ -1,4 +1,4 @@
-
+from producto import Producto
 
 class DetalleReceta:
 
@@ -17,28 +17,31 @@ class DetalleReceta:
         self.set_cantidad(cantidad)
         self.set_producto(producto)
         self.set_receta(receta)
-        DetalleReceta.ListDetalleRecetas.append(self)
 
-    def get_codigo(self):
-        return self._codigo
+        DetalleReceta.ListDetalleRecetas.append(self)
 
     def set_codigo(self, codigo):
         self._codigo = codigo
 
+    def get_codigo(self):
+        return self._codigo
+
     def set_cantidad(self, cantidad):
-        self._cantidad = cantidad
+        self._cantidad = int(cantidad)
 
     def get_cantidad(self):
         return self._cantidad
 
     def set_producto(self, producto):
         self._producto = producto
+        producto.set_detalle_recetas(self)
 
     def get_producto(self):
         return self._producto
 
     def set_receta(self, receta):
         self._receta = receta
+        receta.set_detalle_recetas(self)
 
     def get_receta(self):
         return self._receta
@@ -46,7 +49,7 @@ class DetalleReceta:
     def toString(self):
         Str = Mensajes.men.get('formatoDetalleReceta') % (
             self.get_codigo(), self.get_producto().get_nombre(), 
-            self.get_cantidad(), self.get_producto().get_medicion())
+            str(self.get_cantidad()), self.get_producto().get_medicion())
         return Str
 '''
     @staticmethod

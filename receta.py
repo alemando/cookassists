@@ -1,4 +1,4 @@
-
+from detalleReceta import DetalleReceta
 
 class Receta:
 
@@ -7,22 +7,25 @@ class Receta:
 
     def __init__(
         self, nombre, 
-        tiempo_preparacion):
+        tiempo_preparacion, detalle_receta):
         '''ATTRIBUTES
             self._codigo
             self._nombre
             self._tiempo_preparacion
         '''
-        auto_increment_codigo += 1
-        self.set_codigo(str(auto_increment_codigo))
-        self.set_nombre(nombre)
-        self.set_tiempo_preparacion(tiempo_preparacion)
         self._ListDetalleRecetas = []
         self._ListDetallePedidos = []
         self._ListCalificaciones = []
+        self.set_codigo()
+        self.set_nombre(nombre)
+        self.set_tiempo_preparacion(tiempo_preparacion)
+        for detalle in detalle_receta:
+            DetalleReceta(detalle.get('cantidad'), detalle.get('producto'), self)
 
-    def set_codigo(self, codigo):
-        self._codigo = codigo
+    #receta codigo ya creado
+    def set_codigo(self):
+        codigo = Receta.get_proximo_codigo()
+        self._codigo = str(codigo)
 
     def get_codigo(self):
         return self._codigo
@@ -56,6 +59,11 @@ class Receta:
 
     def get_calificaciones(self):
         return self._ListCalificaciones
+
+    @staticmethod
+    def get_proximo_codigo():
+        Receta.auto_increment_codigo += 1
+        return Receta.auto_increment_codigo
 
     def toString(self):
         Str = Mensajes.men.get('formatoReceta') % (
