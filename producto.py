@@ -6,8 +6,8 @@ class Producto:
     auto_increment_codigo = 0
 
     def __init__(
-            self, nombre, categoria, cantidad,
-            necesario, medicion, ilimitado, descontinuado = False):
+        self, nombre, categoria, cantidad,
+        necesario, medicion, ilimitado, descontinuado = False):
         '''ATTRIBUTES
             self._ListDetallePedidos
             self._ListDetalleRecetas

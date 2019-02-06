@@ -1,8 +1,9 @@
+from mensajes import Mensajes
 from detalleReceta import DetalleReceta
 
 class Receta:
 
-	ListRecetas = []
+    ListRecetas = []
     auto_increment_codigo = 0
 
     def __init__(
@@ -21,6 +22,7 @@ class Receta:
         self.set_tiempo_preparacion(tiempo_preparacion)
         for detalle in detalle_receta:
             DetalleReceta(detalle.get('cantidad'), detalle.get('producto'), self)
+        Receta.ListRecetas.append(self)
 
     #receta codigo ya creado
     def set_codigo(self):
@@ -70,17 +72,25 @@ class Receta:
             self.get_codigo(), self.get_nombre(),
             self.get_tiempo_preparacion())
         #concatenado el detalle receta
-        for detalle in _ListDetalleRecetas:
+        for detalle in self._ListDetalleRecetas:
             Str+= detalle.toString()
         return Str
-'''
-    @staticmethod
-    def get_producto_by_codigo(codigo):
-        for producto in Producto.ListProductos:
-            if producto.get_codigo() == codigo:
-                return producto
-        return None
 
+    @staticmethod
+    def get_receta_by_codigo(codigo):
+        for receta in Receta.ListRecetas:
+            if receta.get_codigo() == codigo:
+                return receta
+        return None
+    
+    @staticmethod
+    def get_receta_by_nombre(nombre):
+        ListCoincidencias = []
+        for receta in Receta.ListRecetas:
+            if receta.get_nombre().find(nombre) != -1:
+                ListCoincidencias.append(receta)
+        return ListCoincidencias
+'''
     @staticmethod
     def get_posicion_lista(codigo):
         for i in range(0,len(Producto.ListProductos)):

@@ -20,7 +20,8 @@ class Mensajes:
     5. Menu Idiomas
     6. Menu Recetas
     7. Menu Productos
-    8. Salir
+    8. Menu Pedidos
+    9. Salir
     ''',
     'menu_producto' : '''
     Menú Productos
@@ -59,7 +60,7 @@ class Mensajes:
     5. <-Atras
     ''',
     'menu_datos' : '''
-    Menú Datoss
+    Menú Datos
     1. Agregar datos ficticios
     2. <-Atras
     ''',
@@ -129,6 +130,16 @@ class Mensajes:
     Cantidad: %s %s
     Necesario: %s
     ''',
+    #Receta
+    'opcionesReceta' : '# codigo nombre', 
+    'menu_receta' : '''
+    Menú Receta
+    1. Ver receta
+    2. Agregar receta
+    3. Modificar receta
+    4. <-Atras
+    ''',
+    'cabeceraDetalle' : '# cantidad nombre',
     'formatoDetalleReceta' : '''
     Código: %s Nombre: %s Cantidad: %s %s
     ''',
@@ -171,17 +182,17 @@ class Mensajes:
     1. Si
     2. No
     ''',
-    'opcionesVerReceta' : '''
+    'ver_receta' : '''
     1. Buscar por código
     2. Buscar por nombre
     3. <-Atras
     ''',
     'tiempo' : 'Ingrese el tiempo de preparacion: ',
-    'opcionesDetalleReceta' :'''
-    1. Agregar Ingrediente
-    2. Editar Ingrediente
-    3. 
-
+    'detalleReceta' :'''
+    1. Agregar Ingredientes
+    2. Editar cantidades
+    3. Eliminar Ingredientes
+    4. Finalizar
     '''
     }
 
@@ -266,7 +277,7 @@ class Mensajes:
     1. Yes
     2. No
     ''',
-    'opcionesVerReceta' :'''
+    'ver_receta' :'''
     1. Search by code
     2. Search by name
     3. <-Back

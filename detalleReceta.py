@@ -1,3 +1,4 @@
+from mensajes import Mensajes
 from producto import Producto
 
 class DetalleReceta:
