@@ -1,6 +1,5 @@
-from mensajes import Mensajes
 from producto import Producto
-
+from languageEN import EN
 class DetalleReceta:
 
     ListDetalleRecetas = []
@@ -47,8 +46,8 @@ class DetalleReceta:
     def get_receta(self):
         return self._receta
 
-    def toString(self):
-        Str = Mensajes.men.get('formatoDetalleReceta') % (
+    def __str__(self):
+        Str = EN.men.get('formatoDetalleReceta') % (
             self.get_codigo(), self.get_producto().get_nombre(), 
             str(self.get_cantidad()), self.get_producto().get_medicion())
         return Str

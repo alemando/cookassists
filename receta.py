@@ -1,6 +1,5 @@
-from mensajes import Mensajes
 from detalleReceta import DetalleReceta
-
+from languageEN import EN
 class Receta:
 
     ListRecetas = []
@@ -67,13 +66,13 @@ class Receta:
         Receta.auto_increment_codigo += 1
         return Receta.auto_increment_codigo
 
-    def toString(self):
-        Str = Mensajes.men.get('formatoReceta') % (
+    def __str__(self):
+        Str = EN.men.get('formatoReceta') % (
             self.get_codigo(), self.get_nombre(),
             self.get_tiempo_preparacion())
         #concatenado el detalle receta
         for detalle in self._ListDetalleRecetas:
-            Str+= detalle.toString()
+            Str+= detalle.__str__()
         return Str
 
     @staticmethod

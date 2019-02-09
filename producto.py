@@ -1,5 +1,4 @@
-from mensajes import Mensajes
-
+from languageEN import EN
 class Producto:
 
     ListProductos = []
@@ -146,7 +145,7 @@ class Producto:
         Producto.auto_increment_codigo += 1
         return Producto.auto_increment_codigo
         
-    def toString(self):
+    def __str__(self):
         codigo = self.get_codigo() 
         nombre = self.get_nombre()
         categoria = self.get_categoria()
@@ -157,7 +156,7 @@ class Producto:
             necesario = "Si"
         else:
             necesario = "No"
-        Str = Mensajes.men.get('formatoProducto') % (
+        Str = EN.men.get('formatoProducto') % (
             codigo, nombre, categoria,
             cantidad, medicion, necesario)
         return Str
