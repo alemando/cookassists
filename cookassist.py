@@ -174,7 +174,7 @@ class CookAssist:
                     print(numero +' '+ receta[i].get_codigo().zfill(6) +' '+ receta[i].get_nombre())
                 opcion = int(input(CookAssist.mensaje('opcion', False)))
                 print(receta[(opcion-1)])
-                return receta
+                return receta[(opcion-1)]
             else:
                 CookAssist.mensaje('notMatch')
 
@@ -182,6 +182,33 @@ class CookAssist:
     def agregar_receta():
         nombre = input(CookAssist.mensaje('nombre', False))
         tiempo_preparacion = int(input(CookAssist.mensaje('tiempo', False)))
+        detalle = CookAssist.agregar_detalle_receta()
+        receta = Receta(nombre, tiempo_preparacion, detalle)
+    
+    @staticmethod
+    def editar_receta():
+        receta = CookAssist.ver_receta()
+        if receta is not None:
+            CookAssist.mensaje('editar_receta')
+            opcion = input(CookAssist.mensaje('opcion', False))
+            valor = None
+            if opcion == '1':
+                valor = input(CookAssist.mensaje('nombre', False))
+            elif opcion == '2':
+                valor = input(CookAssist.mensaje('tiempo', False))
+            elif opcion == '3':
+                valor = CookAssist.agregar_detalle_receta()
+            elif opcion == '4':
+                codigo = input(CookAssist.mensaje('codigo', False))
+                cantidad = input(CookAssist.mensaje('cantidad', False))
+                valor = {'codigo' : codigo, 'cantidad' : cantidad}
+            elif opcion == '5':
+                valor = input(CookAssist.mensaje('codigo', False))
+            if opcion != '6':
+                receta.editar_receta(opcion, valor)
+    
+    @staticmethod
+    def agregar_detalle_receta():
         CookAssist.mensaje('detalleReceta')
         opcion = input(CookAssist.mensaje('opcion', False))
         detalle = []
@@ -210,28 +237,7 @@ class CookAssist:
             
             CookAssist.mensaje('detalleReceta')
             opcion = input(CookAssist.mensaje('opcion', False))
-        receta = Receta(nombre, tiempo_preparacion, detalle)
-    
-    @staticmethod
-    def editar_receta():
-        receta = CookAssist.ver_receta()
-        if receta is not None:
-            CookAssist.mensaje('editar_receta')
-            opcion = input(CookAssist.mensaje('opcion', False))
-            valor = None
-            if opcion == '1':
-                valor = input(CookAssist.mensaje('nombre', False))
-            elif opcion == '2':
-                valor = input(CookAssist.mensaje('tiempo', False))
-            elif opcion == '3':
-                valor = input(CookAssist.mensaje('cantidad', False))
-            elif opcion == '4':
-                valor = input(CookAssist.mensaje('necesario', False))
-            elif opcion == '5':
-                valor = input(CookAssist.mensaje('medicion', False))
-            if opcion != '6':
-                receta.editar_receta(opcion, valor)
-    
+        return detalle
     #Pedido
     @staticmethod
     def menu_pedido(opcion):

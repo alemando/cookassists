@@ -2,7 +2,7 @@ from producto import Producto
 from languageEN import EN
 class DetalleReceta:
 
-    ListDetalleRecetas = []
+    ListDetalleRecetas = {}
 
     def __init__(
         self, cantidad, 
@@ -13,15 +13,14 @@ class DetalleReceta:
             self._producto
             self._receta
         '''
-        self.set_codigo(receta.get_codigo()+'-'+producto.get_codigo())
+        self.set_codigo(receta.get_codigo(), producto.get_codigo())
         self.set_cantidad(cantidad)
         self.set_producto(producto)
         self.set_receta(receta)
+        DetalleReceta.ListDetalleRecetas[self.get_codigo()] = self
 
-        DetalleReceta.ListDetalleRecetas.append(self)
-
-    def set_codigo(self, codigo):
-        self._codigo = codigo
+    def set_codigo(self, codigo_receta, codigo_producto):
+        self._codigo = codigo_receta +'-'+ codigo_producto
 
     def get_codigo(self):
         return self._codigo
@@ -51,16 +50,10 @@ class DetalleReceta:
             self.get_codigo(), self.get_producto().get_nombre(), 
             str(self.get_cantidad()), self.get_producto().get_medicion())
         return Str
-'''
-    @staticmethod
-    def get_posicion_lista(codigo):
-        for i in range(0,len(DetalleReceta.ListDetalleRecetas)):
-            if DetalleReceta.ListDetalleRecetas[i].get_codigo() == codigo:
-                return i
-                break
-        return -1
 
     @staticmethod
-    def delete_element(posicion):
-        DetalleReceta.ListDetalleRecetas.pop(posicion)
-'''
+    def delete_receta(codigo):
+        detalle = DetalleReceta.ListDetalleRecetas.pop(codigo)
+        detalle.get_receta().get_detalle_recetas().pop(codigo)
+        detalle.get_producto().get_detalle_recetas().pop(codigo)
+
