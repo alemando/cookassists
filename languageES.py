@@ -7,6 +7,17 @@ class ES:
     2. Ingles
     Seleccione: 
     ''',
+    'enter':'''
+    Bienvenido a CookAssist
+    es usted un?
+    1. Usuario registrado
+    2. Usuario sin registrar
+    Seleccione una opcion: 
+    ''',
+    'id_type' : 'Ingrese su tipo de identificación: ',
+    'id' : 'Ingrese su identificación: ',
+    'password' : 'Ingrese su contraseña: ',
+    'user_not_found' : 'Usuario no encontrado',
     'menu' : '''
     Menú
     1. Menu Usuarios
@@ -70,10 +81,10 @@ class ES:
     'salir' : 'Chaito',
     'id' : 'Ingrese el numero de identificación: ',
     'userNotFound' : 'Usuario no encontrado',
-    'formatoUsuario' : '''
-    Tipo usuario: %s
+    'str_user' : '''
+    Usuario: %s
     Nombre: %s
-    Identificación: %d
+    Identificación: %s %s
     Fecha nacimiento: %s
     ''',
     #Mensajes de producto
@@ -153,10 +164,28 @@ class ES:
     Nombre: %s
     Tiempo: %d
     ''',
+    #Pedido
+    'editar_pedido' : '''
+    Escoja una opcion a modificar:
+    1. Descripcion
+    2. Agregar Ingrediente
+    3. Cambiar Contraseña
+    4. <-Atras
+    ''',
+    'detallePedido' : '''
+    1. Agregar producto
+    2. Agregar receta
+    3. Editar cantidades
+    4. Eliminar del pedido
+    5. Finalizar
+    ''',
+    'descripcion' : 'Ingrese la descripción',
+    'ver_pedido' : '''
+    1. Buscar por código
+    2. <-Atras
+    ''',
     'formatoDetallePedido' : '''
-    Código: %s
-    Nombre: %s
-    Cantidad: %d
+    Código: %s Nombre: %s Cantidad: %d
     ''',
     'formatoPedido' : '''
     Código: %s

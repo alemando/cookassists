@@ -74,7 +74,7 @@ class Receta:
             detalle = self.get_detalle_pedidos.get(valor.get('codigo'))
             detalle.set_cantidad(valor.get('cantidad'))
         elif opcion == '5':
-            DetalleReceta.delete_receta(valor)
+            DetalleReceta.delete_detalle(valor)
 
     def __str__(self):
         Str = EN.men.get('formatoReceta') % (
@@ -82,7 +82,7 @@ class Receta:
             self.get_tiempo_preparacion())
         #concatenado el detalle receta
         for detalle in self._ListDetalleRecetas.values():
-            Str+= detalle.__str__()
+            Str+= detalle.__str__() + '\n'
         return Str
 
     @staticmethod

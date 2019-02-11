@@ -1,100 +1,100 @@
-from mensajes import Mensajes
-
+from languageEN import EN
 
 class Usuario:
 
-    ListUsuarios = []
+    ListUsuarios = {}
 
     def __init__(
-            self, tipo_usuario, nombre, identificacion, 
-            fecha_nacimiento, contrasena):
+            self, admin, name, id_type, 
+            id, born_date, password):
         '''ATTRIBUTES
-            self._tipo_usuario
-            self._nombre
-            self._identificacion
-            self._fecha_nacimiento
-            self._contrasena
+            self._admin
+            self._name
+            self._id_type
+            self._id
+            self._born_date
+            self._password
         '''
-        self._ListCalificaciones = []
-        self._ListPedidos = []
-        self.set_tipo_usuario(tipo_usuario)
-        self.set_nombre(nombre)
-        self.set_identificacion(identificacion)
-        self.set_fecha_nacimiento(fecha_nacimiento)
-        self.set_contrasena(contrasena)
-        Usuario.ListUsuarios.append(self)
+        self._ListCalificaciones = {}
+        self._ListPedidos = {}
+        self.set_admin(admin)
+        self.set_name(name)
+        self.set_id_type(id_type)
+        self.set_id(id)
+        self.set_born_date(born_date)
+        self.set_password(password)
+        Usuario.ListUsuarios[self.get_id_type +'-'+ self.get_id()] = self
 
-    def set_tipo_usuario(self, tipo_usuario):
-        self._tipo_usuario = tipo_usuario
+    def set_admin(self, admin):
+        self._admin = admin
 
-    def get_tipo_usuario(self):
-        return self._tipo_usuario
+    def get_admin(self):
+        return self._admin
 
-    def set_nombre(self, nombre):
-        self._nombre = nombre
+    def set_name(self, name):
+        self._name = name
 
-    def get_nombre(self):
-        return self._nombre
+    def get_name(self):
+        return self._name
 
-    def set_identificacion(self, identificacion):
-        self._identificacion = identificacion
+    def set_id_type(self, id_type):
+        self._id_type = id_type
 
-    def get_identificacion(self):
-        return self._identificacion
+    def get_id_type(self):
+        return self._id_type
 
-    def set_fecha_nacimiento(self, fecha_nacimiento):
-        self._fecha_nacimiento = fecha_nacimiento
+    def set_id(self, id):
+        self._id= id
 
-    def get_fecha_nacimiento(self):
-        return self._fecha_nacimiento
+    def get_id(self):
+        return self._id
 
-    def set_contrasena(self, contrasena):
-        self._contrasena = contrasena
+    def set_born_date(self, born_date):
+        self._born_date = born_date
 
-    def get_contrasena(self):
-        return self._contrasena
+    def get_born_date(self):
+        return self._born_date
+
+    def set_password(self, password):
+        self._password = password
+
+    def get_password(self):
+        return self._password
 
     def set_calificaciones(self, calificacion):
-        self._ListCalificaciones.append(calificacion)
+        self._ListCalificaciones[calificacion.get_codigo()] = calificacion
 
     def get_calificaciones(self):
         return self._ListCalificaciones
 
     def set_pedidos(self, pedido):
-        self._ListPedidos.append(pedido)
+        self._ListPedidos[pedido.get_codigo()] = pedido
 
     def get_pedidos(self):
         return self._ListPedidos
 
-    def toString(self):
-        Str = Mensajes.men.get('formatoUsuario') % (
-                self.get_tipo_usuario(), self.get_nombre(), 
-                self.get_identificacion(), self.get_fecha_nacimiento())
+    def __str__(self):
+        Str = EN.men.get('str_user') % (
+                self.get_admin(), self.get_name(), 
+                self.get_id_type, self.get_id(), self.get_born_date())
         return Str
 
     @staticmethod
-    def get_usuario_by_identificacion(identificacion):
-        for user in Usuario.ListUsuarios:
-            if user.get_identificacion() == identificacion:
-                return user
-        return None
+    def get_user_by_id(id_type, id):
+        return Usuario.ListUsuarios.get(id_type +'-'+ id)
 
     @staticmethod
-    def verificar_identificacion(identificacion):
-        for user in Usuario.ListUsuarios:
-            if user.get_identificacion() == identificacion:
+    def check_id(id):
+        for user in Usuario.ListUsuarios.values():
+            if user.get_id() == id:
                 return False
         return True
 
     @staticmethod
-    def get_posicion_lista(identificacion):
-        for i in range(0,len(Usuario.ListUsuarios)):
-            if Usuario.ListUsuarios[i].get_identificacion() == identificacion:
-                return i
-                break
-        return -1
-
-    @staticmethod
-    def delete_element(posicion):
-        Usuario.ListUsuarios.pop(posicion)
-
+    def check_login(id_type, id, password):
+        user = Usuario.get_user_by_id(id_type, id)
+        if user is not None:
+            if user.get_password == password:
+                return user
+        return None
+        
