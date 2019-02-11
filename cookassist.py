@@ -14,12 +14,13 @@ class CookAssist:
     user = None
 
     @staticmethod
-    def enter(opcion):
+    def enter(option):
         menu = {
             '1': CookAssist.login,
             '2': CookAssist.new_user,
+            '3': CookAssist.close
         }
-        return menu.get(opcion)
+        return menu.get(option)
 
     @staticmethod
     def login():
@@ -29,23 +30,54 @@ class CookAssist:
         CookAssist.user = Usuario.check_login(id_type, id, password)
         if CookAssist.user is None:
             CookAssist.mensaje('user_not_found')
+
     @staticmethod
     def new_user():
-        pass
+        admin = False
+        if CookAssist.user is not None:
+            if CookAssist.user.get_admin():
+                adm = input(CookAssist.mensaje('admin', False))
+                if adm == '1':
+                    admin = True
+        id_type = input(CookAssist.mensaje('id_type', False))
+        if id_type == '1':
+            id_type = 'CC'
+        elif id_type == '2':
+            id_type = 'TI'
+        id = input(CookAssist.mensaje('id', False))
+        name = input(CookAssist.mensaje('name', False))
+        password = input(CookAssist.mensaje('password', False))
+        born_date = input(CookAssist.mensaje('born_date', False))
+        Usuario(admin, id_type, id, name, password, born_date)
         
 
     @staticmethod
     def menu(opcion):
+        menu = {}
+        key_number = 0
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_usuario
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_producto
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_receta
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_pedido
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_idioma
+        key_number += 1 
+        menu[str(key_number)] = CookAssist.menu_calificacion
+        
+        
+        
+        
+        if CookAssist.user.get_admin():
+
         menu = {
-            '1': CookAssist.menu_usuario,
             '2': CookAssist.menu_chef,
             '3': CookAssist.menu_calificacion,
             '4': CookAssist.menu_datos,
-            '5': CookAssist.menu_idioma,
-            '6': CookAssist.menu_receta,
-            '7': CookAssist.menu_producto,
-            '8': CookAssist.menu_pedido,
-            '9': CookAssist.salir
+            '9': CookAssist.sign_off
         }
         return menu.get(opcion)
 
@@ -88,10 +120,15 @@ class CookAssist:
             return EN.men.get(opcion)
     
     @staticmethod
-    def salir():
-        CookAssist.mensaje('salir')
+    def sign_off():
+        CookAssist.mensaje('sign_off')
+        CookAssist.user = None
+
+    @staticmethod
+    def close():
+        CookAssist.mensaje('close')
         os._exit(0)
-    
+
     #Producto
     @staticmethod
     def menu_producto(opcion):
@@ -465,38 +502,42 @@ class CookAssist:
     def run():
 
         EN.men = ES.spanish
-        while CookAssist.user is None:
-            option = input(CookAssist.mensaje('enter', false))
-            CookAssist.enter(option)()
+        Usuario(True, 'CC', '1238938010', 'Alejandro Jiménez', '12345', '28/10/1999')
+
         while True:
-            CookAssist.mensaje('menu')
-            opcion_principal = input(CookAssist.mensaje('opcion', False))
-            print('')
-            action_principal = CookAssist.menu(opcion_principal)
-            if action_principal:
-                ejecutar = True
 
-                action_string = str(action_principal)
-                action_slice_start = action_string.find('.') + 1
-                action_slice_last = action_string.index(' ', action_slice_start)
-                action = action_string[action_slice_start:action_slice_last]
-                if action == 'salir':
-                    action_principal()
+            while CookAssist.user is None:
+                option = input(CookAssist.mensaje('enter', False))
+                CookAssist.enter(option)()
 
-                while ejecutar:
-                    
-                    CookAssist.mensaje(action)
-                    opcion_menu = input(CookAssist.mensaje('opcion', False))
-                    print('')
-                    action_menu = action_principal(opcion_menu)
-                    if action_menu:
-                        action_menu()
+            while CookAssist.user is not None:
+                CookAssist.mensaje('menu')
+                opcion_principal = input(CookAssist.mensaje('opcion', False))
+                print('')
+                action_principal = CookAssist.menu(opcion_principal)
+                if action_principal:
+                    ejecutar = True
+
+                    action_string = str(action_principal)
+                    action_slice_start = action_string.find('.') + 1
+                    action_slice_last = action_string.index(' ', action_slice_start)
+                    action = action_string[action_slice_start:action_slice_last]
+                    if action == 'sign_off':
+                        action_principal()
                     else:
-                        ejecutar = False
-                    
-                    
-            else:
-                print(CookAssist.mensaje('opcionNoValida', False).format(opcion))
+                        while ejecutar:
+                            
+                            CookAssist.mensaje(action)
+                            opcion_menu = input(CookAssist.mensaje('opcion', False))
+                            print('')
+                            action_menu = action_principal(opcion_menu)
+                            if action_menu:
+                                action_menu()
+                            else:
+                                ejecutar = False
+                        
+                else:
+                    print(CookAssist.mensaje('opcionNoValida', False).format(opcion))
             
 
 if __name__ == '__main__':

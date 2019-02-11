@@ -5,25 +5,25 @@ class Usuario:
     ListUsuarios = {}
 
     def __init__(
-            self, admin, name, id_type, 
-            id, born_date, password):
+            self, admin, id_type, id, 
+            name, password, born_date):
         '''ATTRIBUTES
             self._admin
-            self._name
             self._id_type
             self._id
-            self._born_date
+            self._name
             self._password
+            self._born_date
         '''
         self._ListCalificaciones = {}
         self._ListPedidos = {}
         self.set_admin(admin)
-        self.set_name(name)
         self.set_id_type(id_type)
         self.set_id(id)
-        self.set_born_date(born_date)
+        self.set_name(name)
         self.set_password(password)
-        Usuario.ListUsuarios[self.get_id_type +'-'+ self.get_id()] = self
+        self.set_born_date(born_date)
+        Usuario.ListUsuarios[self.get_id_type() +'-'+ self.get_id()] = self
 
     def set_admin(self, admin):
         self._admin = admin
@@ -94,7 +94,7 @@ class Usuario:
     def check_login(id_type, id, password):
         user = Usuario.get_user_by_id(id_type, id)
         if user is not None:
-            if user.get_password == password:
+            if user.get_password() == password:
                 return user
         return None
         

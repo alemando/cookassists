@@ -7,17 +7,33 @@ class ES:
     2. Ingles
     Seleccione: 
     ''',
-    'enter':'''
+    'sign_off' : 'Cerrando sesion',
+    'enter' : '''
     Bienvenido a CookAssist
     es usted un?
     1. Usuario registrado
     2. Usuario sin registrar
+    3. Salir
     Seleccione una opcion: 
     ''',
-    'id_type' : 'Ingrese su tipo de identificación: ',
+    'id_type' : '''
+    Tipo de identificación: 
+    1. CC
+    2. TI
+    Ingrese la opcion: 
+    ''',
     'id' : 'Ingrese su identificación: ',
     'password' : 'Ingrese su contraseña: ',
+    'name' : 'Ingrese su nombre: ',
+    'admin' : '''
+    Usuario administrador?
+    1. Si
+    2. No
+    Ingrese la opcion: 
+    ''',
+    'born_date' : 'Ingrese su fecha de nacimiento(dd/mm/yyyy): ',
     'user_not_found' : 'Usuario no encontrado',
+
     'menu' : '''
     Menú
     1. Menu Usuarios
@@ -28,7 +44,7 @@ class ES:
     6. Menu Recetas
     7. Menu Productos
     8. Menu Pedidos
-    9. Salir
+    9. Cerrar Sesion
     ''',
     'menu_producto' : '''
     Menú Productos
@@ -78,7 +94,7 @@ class ES:
     ''',
     'opcion' : 'Ingrese una opcion: ',
     'opcionNoValida': '{0} no es una opcion valida',
-    'salir' : 'Chaito',
+    'close' : 'Programa Cerrado',
     'id' : 'Ingrese el numero de identificación: ',
     'userNotFound' : 'Usuario no encontrado',
     'str_user' : '''

@@ -15,6 +15,7 @@ class Datos:
         Producto("Leche", "3", 1000, "1", "2", "2")
         Producto("Mantequilla", "1", 1000, "1", "2", "2")
         Producto("Chocolatina", "4", 10, "1", "1", "2")
+        #Usuario(True, 'CC', '1238938010', 'Alejandro Jiménez', '12345', '28/10/1999')
 '''
     @staticmethod
     def generarComentarios(cant):
