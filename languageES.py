@@ -5,8 +5,7 @@ class ES:
     Idioma:
     1. Español
     2. Ingles
-    Seleccione: 
-    ''',
+    Seleccione: ''',
     'sign_off' : 'Cerrando sesion',
     'enter' : '''
     Bienvenido a CookAssist
@@ -14,14 +13,12 @@ class ES:
     1. Usuario registrado
     2. Usuario sin registrar
     3. Salir
-    Seleccione una opcion: 
-    ''',
+    Seleccione una opcion: ''',
     'id_type' : '''
     Tipo de identificación: 
     1. CC
     2. TI
-    Ingrese la opcion: 
-    ''',
+    Ingrese la opcion: ''',
     'id' : 'Ingrese su identificación: ',
     'password' : 'Ingrese su contraseña: ',
     'name' : 'Ingrese su nombre: ',
@@ -29,23 +26,109 @@ class ES:
     Usuario administrador?
     1. Si
     2. No
-    Ingrese la opcion: 
-    ''',
+    Ingrese la opcion: ''',
     'born_date' : 'Ingrese su fecha de nacimiento(dd/mm/yyyy): ',
     'user_not_found' : 'Usuario no encontrado',
-
-    'menu' : '''
+    'menu_main_admin' : '''
     Menú
-    1. Menu Usuarios
-    2. Menu Chefs
-    3. Menu Calificaciones
-    4. Menu Datos
-    5. Menu Idiomas
-    6. Menu Recetas
-    7. Menu Productos
-    8. Menu Pedidos
-    9. Cerrar Sesion
+    1. Menu Productos
+    2. Menu Recetas
+    3. Menu Pedidos
+    4. Menu Calificaciones
+    5. Menu Usuarios
+    6. Menu Chefs
+    7. Menu Idiomas
+    8. Menu Datos
+    9. Cerrar Sesión
+    Seleccione una opción: ''',
+    'menu_main_chef' : '''
+    Menú
+    1. Menu Productos
+    2. Menu Recetas
+    3. Menu Pedidos
+    4. Menu Calificaciones
+    5. Menu Usuario
+    6. Menu Idiomas
+    7. Cerrar Sesión
+    Seleccione una opción: ''',
+    'menu_main_user' : '''
+    Menú
+    1. Menu Productos
+    2. Menu Recetas
+    3. Menu Pedidos
+    4. Menu Calificaciones
+    5. Menu Usuario
+    6. Menu Idiomas
+    7. Cerrar Sesión
+    Seleccione una opción: ''',
+    'menu_data' : '''
+    Menú Datos
+    1. Agregar datos ficticios
+    2. <-Atras
+    Seleccione una opción: ''',
+    'menu_language' : '''
+    Menú Idiomas
+    1. Cambiar idioma
+    2. <-Atras
+    Seleccione una opción: ''',
+    'menu_usuario_admin': '''
+    Menú Usuario
+    1. Buscar usuario
+    2. Nuevo usuario
+    3. Editar mi usuario
+    4. Editar usuarios
+    5. Activar/Desactivar usuario
+    Seleccione una opción: ''',
+    'menu_usuario_admin_is_chef': '''
+    Menú Usuario
+    1. Buscar usuario
+    2. Nuevo usuario
+    3. Editar mi usuario
+    4. Editar usuarios
+    5. Activar/Desactivar usuario
+    6. Cambiar modo de inicio
+    Seleccione una opción: ''',
+    'menu_usuario_chef': '''
+    Menú Usuario
+    1. Editar mi usuario
+    2. Cambiar modo de inicio
+    Seleccione una opción: ''',
+    'menu_usuario_user': '''
+    Menú Usuario
+    1. Editar mi usuario
+    2. Desactivar mi usuario
+    Seleccione una opción: ''',
+    'menu_usuario_user_is_chef': '''
+    Menú Usuario
+    1. Editar mi usuario
+    2. Desactivar mi usuario
+    3. Cambiar modo de inicio
+    Seleccione una opción: ''',
+    'user_not_found' : 'Usuario no encontrado',
+    'search_user' : '''
+    Buscar usuario por:
+    1. Identifaciòn
+    2. Nombre
+    3. <-Atras
+    Seleccione una opción: ''',
+    'not_match' : 'Nó se encontraron coincidencias',
+    'yes' : 'Si',
+    'no' : 'NO',
+    'str_user' : '''
+    Usuario: %s
+    Nombre: %s
+    Identificación: %s %s
+    Fecha nacimiento: %s
+    Estado: %s
     ''',
+    'active' : 'Activo',
+    'inactive' : 'Inactivo'
+    'search_user_header' : '# Tipo ID         Nombre'
+    'option' : 'Seleccione una opción: ',
+    'close' : 'Programa Cerrado',
+
+
+
     'menu_producto' : '''
     Menú Productos
     1. Ver producto
@@ -57,14 +140,6 @@ class ES:
     1. Buscar producto por código
     2. Buscar producto por nombre
     3. <-Atras
-    ''',
-    'menu_usuario' : '''
-    Menú Usuarios
-    1. Ver usuario
-    2. Agregar usuario
-    3. Modificar usuario
-    4. Eliminar usuario
-    5. <-Atras
     ''',
     'menu_chef' : '''
     Menú Chefs
@@ -82,27 +157,10 @@ class ES:
     4. Eliminar calificación
     5. <-Atras
     ''',
-    'menu_datos' : '''
-    Menú Datos
-    1. Agregar datos ficticios
-    2. <-Atras
-    ''',
-    'menu_idioma' : '''
-    Menú Idiomas
-    1. Cambiar idioma
-    2. <-Atras
-    ''',
-    'opcion' : 'Ingrese una opcion: ',
+    
     'opcionNoValida': '{0} no es una opcion valida',
-    'close' : 'Programa Cerrado',
-    'id' : 'Ingrese el numero de identificación: ',
-    'userNotFound' : 'Usuario no encontrado',
-    'str_user' : '''
-    Usuario: %s
-    Nombre: %s
-    Identificación: %s %s
-    Fecha nacimiento: %s
-    ''',
+    
+    
     #Mensajes de producto
     'opcionesProducto' : '# codigo nombre', 
     'codigo' : 'Ingrese el codigo: ',
@@ -210,21 +268,11 @@ class ES:
     usuario: %s
     chef: %s
     ''',
-    #Mensaje usuario, producto
-    'notMatch' : 'Nó se encontraron coincidencias',
-    'yes' : 'Si',
-    'no' : 'NO',
+    #Mensaje, producto
     'nombre' : 'Digite el nombre: ',
     'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',
     'contrasena' : 'Digite la contraseña: ',
     'idFound' : 'Identificación existente',
-    'editar_usuario' : '''
-    Opciones
-    1. Cambiar nombre
-    2. Cambiar fecha nacimiento
-    3. Cambiar Contraseña
-    4. <-Atras
-    ''',
     'oldContrasena' : 'Ingrese la vieja contraseña: ',
     'newContrasena' : 'Ingrese la nueva contraseña: ',
     'wrongContrasena' : 'Contraseña incorrecta',

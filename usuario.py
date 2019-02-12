@@ -14,6 +14,7 @@ class Usuario:
             self._name
             self._password
             self._born_date
+            self._status
         '''
         self._ListCalificaciones = {}
         self._ListPedidos = {}
@@ -23,6 +24,7 @@ class Usuario:
         self.set_name(name)
         self.set_password(password)
         self.set_born_date(born_date)
+        self.set_status(True)
         Usuario.ListUsuarios[self.get_id_type() +'-'+ self.get_id()] = self
 
     def set_admin(self, admin):
@@ -60,6 +62,12 @@ class Usuario:
 
     def get_password(self):
         return self._password
+    
+    def set_status(self, status):
+        self._status = status
+
+    def get_status(self):
+        return self._status
 
     def set_calificaciones(self, calificacion):
         self._ListCalificaciones[calificacion.get_codigo()] = calificacion
@@ -74,9 +82,23 @@ class Usuario:
         return self._ListPedidos
 
     def __str__(self):
+        admin = self.get_admin()
+        if admin:
+            admin = EN.men.get('si')
+        else:
+            admin = EN.men.get('no')
+        name = self.get_name()
+        id_type = self.get_id_type()
+        id = self.get_id()
+        born_date = self.get_born_date()
+        status = self.get_status()
+        if status:
+            status = EN.men.get('active')
+        else:
+            status = EN.men.get('inactive')    
         Str = EN.men.get('str_user') % (
-                self.get_admin(), self.get_name(), 
-                self.get_id_type, self.get_id(), self.get_born_date())
+                admin, name, id_type, 
+                id, born_date, status)
         return Str
 
     @staticmethod
@@ -97,4 +119,11 @@ class Usuario:
             if user.get_password() == password:
                 return user
         return None
-        
+
+    @staticmethod
+    def get_user_by_name(name):
+        ListCoincidencias = []
+        for user in Usuario.ListUsuarios.values():
+            if user.get_name().lower().find(name.lower()) != -1:
+                ListCoincidencias.append(user)
+        return ListCoincidencias
