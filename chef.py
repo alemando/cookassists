@@ -5,23 +5,24 @@ class Chef(Usuario):
     ListChefs = {}
 
     def __init__(
-            self, tipo_usuario, nombre, tipo_identificacion, 
-            identificacion, fecha_nacimiento, contrasena):
+            self, admin, email, 
+            name, password, born_date):
         '''ATTRIBUTES
             self._admin
-            self._id_type
-            self._id
+            self._email
             self._name
             self._password
             self._born_date
             self._status
             self._status_chef
         '''
-        super().__init__(tipo_usuario, nombre, tipo_identificacion, 
-                        identificacion, fecha_nacimiento, contrasena)
+        super().__init__(
+                    admin, email, name,
+                    password, born_date)
         self._ListCalificacionesChef = {}
         self._ListPedidosChef = {}
-        Chef.ListChefs[self.get_id_type() +'-'+ self.get_id()] = self
+        self.set_status_chef(True)
+        Chef.ListChefs[email] = self
     
     def set_status_chef(self, status):
         self._status_chef = status
@@ -42,8 +43,9 @@ class Chef(Usuario):
         return self._ListPedidosChef
     
     @staticmethod
-    def get_chef_by_id(id_type, id):
-        return Chef.ListChefs.get(id_type +'-'+ id)
+    def get_chef_by_email(email):
+        return Chef.ListChefs.get(email)
+        
 
     @staticmethod
     def get_chef_by_name(name):

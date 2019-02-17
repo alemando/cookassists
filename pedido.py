@@ -16,11 +16,13 @@ class Pedido:
             self._descripcion
             self._usuario
             self._chef
+            self._ready
         '''
         self._ListDetallePedido = {}
         self.set_codigo()
         self._numero_detalle = 0
         self.set_fecha()
+        self.set_ready(False)
         self.set_descripcion(descripcion)
         self.set_usuario(usuario)
         self.set_chef(chef)
@@ -45,6 +47,12 @@ class Pedido:
 
     def get_fecha(self):
         return self._fecha
+
+    def set_ready(self, ready):
+        self._ready = ready
+
+    def get_ready(self):
+        return self._ready
     
     def set_descripcion(self, descripcion):
         self._descripcion = descripcion

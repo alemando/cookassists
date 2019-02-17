@@ -14,12 +14,7 @@ class ES:
     2. Usuario sin registrar
     3. Salir
     Seleccione una opcion: ''',
-    'id_type' : '''
-    Tipo de identificación: 
-    1. CC
-    2. TI
-    Ingrese la opcion: ''',
-    'id' : 'Ingrese su identificación: ',
+    'email' : 'Ingrese su email: ',
     'password' : 'Ingrese su contraseña: ',
     'name' : 'Ingrese su nombre: ',
     'admin' : '''
@@ -76,38 +71,43 @@ class ES:
     1. Buscar usuario
     2. Nuevo usuario
     3. Editar mi usuario
-    4. Editar usuarios
+    4. Cambiar permisos
     5. Activar/Desactivar usuario
+    6. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_admin_is_chef': '''
     Menú Usuario
     1. Buscar usuario
     2. Nuevo usuario
     3. Editar mi usuario
-    4. Editar usuarios
+    4. Cambiar permisos
     5. Activar/Desactivar usuario
     6. Cambiar modo de inicio
+    7. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_chef': '''
     Menú Usuario
     1. Editar mi usuario
     2. Cambiar modo de inicio
+    3. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_user': '''
     Menú Usuario
     1. Editar mi usuario
     2. Desactivar mi usuario
+    3. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_user_is_chef': '''
     Menú Usuario
     1. Editar mi usuario
     2. Desactivar mi usuario
     3. Cambiar modo de inicio
+    4. <-Atras
     Seleccione una opción: ''',
     'user_not_found' : 'Usuario no encontrado',
     'search_user' : '''
     Buscar usuario por:
-    1. Identifaciòn
+    1. email
     2. Nombre
     3. <-Atras
     Seleccione una opción: ''',
@@ -115,40 +115,144 @@ class ES:
     'yes' : 'Si',
     'no' : 'NO',
     'str_user' : '''
-    Usuario: %s
+    Administrador: %s
     Nombre: %s
-    Identificación: %s %s
+    email: %s
     Fecha nacimiento: %s
     Estado: %s
     ''',
     'active' : 'Activo',
-    'inactive' : 'Inactivo'
-    'search_user_header' : '# Tipo ID         Nombre'
+    'inactive' : 'Inactivo',
+    'search_user_header' : '# Email          Nombre',
     'option' : 'Seleccione una opción: ',
     'close' : 'Programa Cerrado',
-
-
-
-    'menu_producto' : '''
+    'menu_chef_admin' : '''
+    Menú Chef
+    1. Buscar chef
+    2. Nuevo chef
+    3. Editar chef
+    4. Activar/Desactivar chef
+    5. Promover a chef
+    6. Ver mejor chef
+    7. <-Atras
+    Seleccione una opción: ''',
+    'menu_chef_user' : '''
+    Menú Chef
+    1. Ver mejor chef
+    2. <-Atras
+    Seleccione una opción: ''',
+    'menu_producto_chef' : '''
     Menú Productos
-    1. Ver producto
-    2. Agregar producto
-    3. Modificar producto
+    1. Buscar producto
+    2. Nuevo producto
+    3. Editar producto
+    4. Activar/Desactivar producto
+    5. Añadir existencias
+    6. <-Atras
+    Seleccione una opción: ''',
+    'menu_producto_admin' : '''
+    Menú Productos
+    1. Buscar producto
+    2. Nuevo producto
+    3. Editar producto
+    4. Activar/Desactivar producto
+    5. Añadir existencias
+    6. <-Atras
+    Seleccione una opción: ''',
+    'menu_producto_user' : '''
+    Menú Productos
+    1. Buscar producto
+    2. <-Atras
+    Seleccione una opción: ''',
+    'menu_receta_chef' : '''
+    Menú Receta
+    1. Buscar receta
+    2. Nueva receta
+    3. Editar receta
+    4. Activar/Desactivar receta
+    5. Ver mejores recetas
+    6. <-Atras
+    Seleccione una opción: ''',
+    'menu_receta_admin' : '''
+    Menú Receta
+    1. Buscar receta
+    2. Nueva receta
+    3. Editar receta
+    4. Activar/Desactivar receta
+    5. Ver mejores recetas
+    6. <-Atras
+    Seleccione una opción: ''',
+    'menu_receta_user' : '''
+    Menú Receta
+    1. Buscar receta
+    2. Ver mejores recetas
+    3. <-Atras
+    Seleccione una opción: ''',
+    'menu_pedio_chef' : '''
+    Menú Pedido
+    1. ver pedidos a mi cargo
+    2. Buscar pedidos
+    3. Editar pedido
+    4. Eliminar Pedido
+    5. Tomar pedido
+    6. <-Atras
+    Seleccione una opción: ''',
+    'menu_pedio_admin' : '''
+    Menú Pedido
+    1. ver mis pedidos
+    2. Buscar pedidos
+    3. Nuevo Pedido
+    4. Editar pedido
+    5. Eliminar Pedido
+    6. Tomar pedido
+    7. <-Atras
+    Seleccione una opción: ''',
+    'menu_pedio_user' : '''
+    Menú Pedido
+    1. ver mis pedidos
+    2. Nuevo Pedido
+    3. <-Atras
+    Seleccione una opción: ''',
+    'user_duplicated' : 'Usuario existente',
+    'edit_my_user' : '''
+    Modificar:
+    1. Nombre
+    2. Contraseña
+    3. Fecha nacimiento
     4. <-Atras
-    ''',
+    Seleccione una opción: ''',
+    'old_password' : 'Ingrese la vieja contraseña: ',
+    'new_password' : 'Ingrese la nueva contraseña: ',
+    'wrong_password' : 'Contraseña incorrecta',
+    'status' : '''
+    Cambiar estado:
+    1. Activar
+    2. Desactivar
+    Seleccione una opción: ''',
+    'status_inactive' : '''
+    Esta seguro de querer desactivar su usuario?
+    1. Si
+    2. No
+    Seleccione una opción: ''',
+    'login_way' : '''
+    Iniciar como:
+    1. Usuario
+    2. Chef
+    Seleccione una opción: ''',
+    
+
+
+
+
+
+
+    
     'ver_producto' : '''
     1. Buscar producto por código
     2. Buscar producto por nombre
     3. <-Atras
     ''',
-    'menu_chef' : '''
-    Menú Chefs
-    1. Ver chef
-    2. Agregar chef
-    3. Modificar chef
-    4. Eliminar chef
-    5. <-Atras
-    ''',
+    
     'menu_calificacion' : '''
     Menú Calificaciónes
     1. Ver calificación
@@ -222,13 +326,7 @@ class ES:
     6. <-Atras
     ''',
     'opcionesReceta' : '# codigo nombre', 
-    'menu_receta' : '''
-    Menú Receta
-    1. Ver receta
-    2. Agregar receta
-    3. Modificar receta
-    4. <-Atras
-    ''',
+    
     'cabeceraDetalle' : '# cantidad nombre',
     'formatoDetalleReceta' : '''
     Código: %s Nombre: %s Cantidad: %s %s
@@ -273,9 +371,8 @@ class ES:
     'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',
     'contrasena' : 'Digite la contraseña: ',
     'idFound' : 'Identificación existente',
-    'oldContrasena' : 'Ingrese la vieja contraseña: ',
-    'newContrasena' : 'Ingrese la nueva contraseña: ',
-    'wrongContrasena' : 'Contraseña incorrecta',
+    
+    
     'yesNo' : '''
     Esta seguro?
     1. Si
