@@ -50,7 +50,7 @@ class CookAssist:
                 '1': CookAssist.menu_producto,
                 '2': CookAssist.menu_receta,
                 '3': CookAssist.menu_pedido,
-                '4': CookAssist.menu_calificacion,
+                '4': CookAssist.menu_chef,
                 '5': CookAssist.menu_usuario,
                 '6': CookAssist.menu_language
             }
@@ -62,8 +62,8 @@ class CookAssist:
                 '2': CookAssist.menu_receta,
                 '3': CookAssist.menu_pedido,
                 '4': CookAssist.menu_calificacion,
-                '5': CookAssist.menu_usuario,
-                '6': CookAssist.menu_chef,
+                '5': CookAssist.menu_chef,
+                '6': CookAssist.menu_usuario,
                 '7': CookAssist.menu_language,
                 '8': CookAssist.menu_data
             }
@@ -74,8 +74,9 @@ class CookAssist:
                 '2': CookAssist.menu_receta,
                 '3': CookAssist.menu_pedido,
                 '4': CookAssist.menu_calificacion,
-                '5': CookAssist.menu_usuario,
-                '6': CookAssist.menu_language
+                '5': CookAssist.menu_chef,
+                '6': CookAssist.menu_usuario,
+                '7': CookAssist.menu_language
                 
             }
             option = input(CookAssist.mensaje('menu_main_user', False))
@@ -318,10 +319,9 @@ class CookAssist:
             menu = {
                 '1': CookAssist.search_chef,
                 '2': CookAssist.new_chef,
-                '3': CookAssist.edit_chef,
-                '4': CookAssist.chef_status,
-                '5': CookAssist.promote_to_chef,
-                '6': CookAssist.see_best_chef
+                '3': CookAssist.chef_status,
+                '4': CookAssist.promote_to_chef,
+                '5': CookAssist.see_best_chef
             }
             option = input(CookAssist.mensaje('menu_chef_admin', False))
         else:
@@ -330,25 +330,77 @@ class CookAssist:
             }
             option = input(CookAssist.mensaje('menu_chef_user', False))
         return menu.get(option)
+
+    #Metodo necesario?
     @staticmethod
     def search_chef():
-        pass
+        option = input(CookAssist.mensaje('search_chef', False))
+        if option == '1':
+            email = input(CookAssist.mensaje('email', False))
+            chef = Chef.get_chef_by_email(email)
+            if chef:
+                print(chef.str_chef())
+                return chef
+            else:
+                CookAssist.mensaje('chef_not_found')
+                return None
+            
+        elif option == '2':
+            name = input(CookAssist.mensaje('name', False))
+            chefs = Chef.get_chef_by_name(name)
+            if len(chefs) != 0:
+                CookAssist.mensaje('search_user_header')
+                for i in range(len(chefs)):
+                    num = str(i + 1)
+                    print(num +' '+ chefs[i].get_email() +' '+ chefs[i].get_name())
+                option = int(input(CookAssist.mensaje('option', False)))
+                print(chefs[(option-1)].str_chef())
+                return chefs[(option-1)]
+            else:
+                CookAssist.mensaje('not_match')
 
     @staticmethod
     def new_chef():
-        pass
-
-    @staticmethod
-    def edit_chef():
-        pass
-
+        admin = False
+        if CookAssist.user:
+            if CookAssist.user.get_admin():
+                adm = input(CookAssist.mensaje('admin', False))
+                if adm == '1':
+                    admin = True
+        email = input(CookAssist.mensaje('email', False))
+        name = input(CookAssist.mensaje('name', False))
+        password = input(CookAssist.mensaje('password', False))
+        born_date = input(CookAssist.mensaje('born_date', False))
+        if Usuario.get_user_by_email(email) is None:
+            if Chef.get_chef_by_email(email) is None:
+                Chef(admin, email, name, password, born_date)
+            else:
+                CookAssist.mensaje('chef_duplicated')
+        else:
+            CookAssist.mensaje('user_duplicated')
     @staticmethod
     def chef_status():
-        pass
+        chef = CookAssist.search_chef()
+        if chef:
+            status = True
+            option = input(CookAssist.mensaje('status', False))
+            if option == '2':
+                status = False
+            chef.set_status_chef(status)
 
     @staticmethod
     def promote_to_chef():
-        pass
+        user = CookAssist.search_user()
+        option = input(CookAssist.mensaje('chef_promote', False))
+        if option == '1':
+            admin = user.get_admin()
+            email = user.get_email()
+            name = user.get_name()
+            password = user.get_password()
+            born_date = user.get_born_date()
+            chef = Chef(admin, email, name, password, born_date)
+            chef.set_promote_calificaciones(user.get_calificaciones())
+            chef.set_promote_pedidos(user.get_pedidos())
     
     @staticmethod
     def see_best_chef():
@@ -742,7 +794,7 @@ class CookAssist:
 
         EN.men = ES.spanish
         Chef(True, 'alemandoa@gmail.com', 'Alejandro Jiménez', '12345', '28/10/1999')
-
+        Usuario(False, 'ejemplo@gmail.com', 'NN', '12345', '01/01/1963')
         while True:
 
             while CookAssist.user is None:

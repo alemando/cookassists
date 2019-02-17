@@ -64,11 +64,19 @@ class Usuario:
     def set_calificaciones(self, calificacion):
         self._ListCalificaciones[calificacion.get_codigo()] = calificacion
 
+    def set_promote_calificaciones(self, calificaciones):
+        for calificacion in calificaciones:
+            calificacion.set_usuario(self)
+
     def get_calificaciones(self):
         return self._ListCalificaciones
 
     def set_pedidos(self, pedido):
         self._ListPedidos[pedido.get_codigo()] = pedido
+
+    def set_promote_pedidos(self, pedidos):
+        for pedido in pedidos:
+            pedido.set_usuario(self)
 
     def get_pedidos(self):
         return self._ListPedidos

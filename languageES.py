@@ -30,8 +30,8 @@ class ES:
     2. Menu Recetas
     3. Menu Pedidos
     4. Menu Calificaciones
-    5. Menu Usuarios
-    6. Menu Chefs
+    5. Menu Chefs
+    6. Menu Usuarios
     7. Menu Idiomas
     8. Menu Datos
     9. Cerrar Sesión
@@ -41,7 +41,7 @@ class ES:
     1. Menu Productos
     2. Menu Recetas
     3. Menu Pedidos
-    4. Menu Calificaciones
+    4. Menu Chefs
     5. Menu Usuario
     6. Menu Idiomas
     7. Cerrar Sesión
@@ -52,9 +52,10 @@ class ES:
     2. Menu Recetas
     3. Menu Pedidos
     4. Menu Calificaciones
-    5. Menu Usuario
-    6. Menu Idiomas
-    7. Cerrar Sesión
+    5. Menu Chefs
+    6. Menu Usuario
+    7. Menu Idiomas
+    8. Cerrar Sesión
     Seleccione una opción: ''',
     'menu_data' : '''
     Menú Datos
@@ -104,7 +105,6 @@ class ES:
     3. Cambiar modo de inicio
     4. <-Atras
     Seleccione una opción: ''',
-    'user_not_found' : 'Usuario no encontrado',
     'search_user' : '''
     Buscar usuario por:
     1. email
@@ -123,18 +123,17 @@ class ES:
     ''',
     'active' : 'Activo',
     'inactive' : 'Inactivo',
-    'search_user_header' : '# Email          Nombre',
+    'search_user_header' : '# Email                Nombre',
     'option' : 'Seleccione una opción: ',
     'close' : 'Programa Cerrado',
     'menu_chef_admin' : '''
     Menú Chef
     1. Buscar chef
     2. Nuevo chef
-    3. Editar chef
-    4. Activar/Desactivar chef
-    5. Promover a chef
-    6. Ver mejor chef
-    7. <-Atras
+    3. Activar/Desactivar chef
+    4. Promover a chef
+    5. Ver mejor chef
+    6. <-Atras
     Seleccione una opción: ''',
     'menu_chef_user' : '''
     Menú Chef
@@ -214,6 +213,7 @@ class ES:
     3. <-Atras
     Seleccione una opción: ''',
     'user_duplicated' : 'Usuario existente',
+    'chef_duplicated' : 'Chef existente',
     'edit_my_user' : '''
     Modificar:
     1. Nombre
@@ -239,7 +239,19 @@ class ES:
     1. Usuario
     2. Chef
     Seleccione una opción: ''',
-    
+    'search_chef' : '''
+    Buscar chef por:
+    1. email
+    2. Nombre
+    3. <-Atras
+    Seleccione una opción: ''',
+    'chef_not_found' : 'Chef no encontrado',
+    'chef_promote' : '''
+    Esta seguro de querer promover al usuario?
+    1. Si
+    2. No
+    Seleccione una opción: ''',
+
 
 
 
@@ -261,8 +273,6 @@ class ES:
     4. Eliminar calificación
     5. <-Atras
     ''',
-    
-    'opcionNoValida': '{0} no es una opcion valida',
     
     
     #Mensajes de producto

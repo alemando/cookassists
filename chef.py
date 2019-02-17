@@ -1,5 +1,5 @@
 from usuario import Usuario
-
+from languageEN import EN
 class Chef(Usuario):
 
     ListChefs = {}
@@ -42,11 +42,31 @@ class Chef(Usuario):
     def get_pedidos_chef(self):
         return self._ListPedidosChef
     
+    #Esta bien?
+    def str_chef(self):
+        admin = self.get_admin()
+        if admin:
+            admin = EN.men.get('yes')
+        else:
+            admin = EN.men.get('no')
+        name = self.get_name()
+        email = self.get_email()
+        born_date = self.get_born_date()
+        status = self.get_status_chef()
+        if status:
+            status = EN.men.get('active')
+        else:
+            status = EN.men.get('inactive')
+        Str = EN.men.get('str_user') % (
+                admin, name, email, 
+                born_date, status)
+        return Str
+
+
     @staticmethod
     def get_chef_by_email(email):
         return Chef.ListChefs.get(email)
         
-
     @staticmethod
     def get_chef_by_name(name):
         ListCoincidencias = []
