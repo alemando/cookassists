@@ -4,31 +4,31 @@ class DetalleReceta:
     ListDetalleRecetas = {}
 
     def __init__(
-        self, cantidad, 
+        self, quantity, 
         producto, receta):
         '''ATTRIBUTES
-            self._codigo
-            self._cantidad
+            self._code
+            self._quantity
             self._producto
             self._receta
         '''
-        self.set_codigo(receta.get_codigo(), producto.get_codigo())
-        self.set_cantidad(cantidad)
+        self.set_code(receta.get_code(), producto.get_code())
+        self.set_quantity(cantidad)
         self.set_producto(producto)
         self.set_receta(receta)
-        DetalleReceta.ListDetalleRecetas[self.get_codigo()] = self
+        DetalleReceta.ListDetalleRecetas[self.get_code()] = self
 
-    def set_codigo(self, codigo_receta, codigo_producto):
-        self._codigo = codigo_receta +'-'+ codigo_producto
+    def set_code(self, code_receta, code_producto):
+        self._code = code_receta +'-'+ code_producto
 
-    def get_codigo(self):
-        return self._codigo
+    def get_code(self):
+        return self._code
 
-    def set_cantidad(self, cantidad):
-        self._cantidad = int(cantidad)
+    def set_quantity(self, quantity):
+        self._quantity = int(quantity)
 
-    def get_cantidad(self):
-        return self._cantidad
+    def get_quantity(self):
+        return self._quantity
 
     def set_producto(self, producto):
         self._producto = producto
@@ -45,9 +45,13 @@ class DetalleReceta:
         return self._receta
 
     def __str__(self):
-        Str = EN.men.get('formatoDetalleReceta') % (
-            self.get_codigo(), self.get_producto().get_nombre(), 
-            str(self.get_cantidad()), self.get_producto().get_medicion())
+        code = self.get_code()
+        producto_name = self.get_producto().get_name()
+        quantity = self.get_quantity()
+        measurement = self.get_producto().get_measurement()
+        Str = EN.men.get('detalle_receta_pattern') % (
+            code, producto_name, 
+            quantity, measurement)
         return Str
 
     @staticmethod

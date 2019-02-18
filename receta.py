@@ -3,46 +3,54 @@ from languageEN import EN
 class Receta:
 
     ListRecetas = {}
-    auto_increment_codigo = 0
+    auto_increment_code = 0
 
     def __init__(
-        self, nombre, 
-        tiempo_preparacion, detalle_receta):
+        self, name, 
+        time, detalle_receta):
         '''ATTRIBUTES
-            self._codigo
-            self._nombre
-            self._tiempo_preparacion
+            self._code
+            self._name
+            self._time
+            self._status
         '''
         self._ListDetalleRecetas = {}
         self._ListDetallePedidos = {}
         self._ListCalificaciones = {}
-        self.set_codigo()
-        self.set_nombre(nombre)
-        self.set_tiempo_preparacion(tiempo_preparacion)
+        self.set_code()
+        self.set_name(name)
+        self.set_time(time)
+        self.set_status(False)
         for detalle in detalle_receta:
-            DetalleReceta(detalle.get('cantidad'), detalle.get('producto'), self)
-        Receta.ListRecetas[self.get_codigo()] = self
+            DetalleReceta(detalle.get('quantity'), detalle.get('producto'), self)
+        Receta.ListRecetas[self.get_code()] = self
 
     #receta codigo ya creado
-    def set_codigo(self):
-        Receta.auto_increment_codigo += 1
-        codigo = Receta.auto_increment_codigo
-        self._codigo = str(codigo)
+    def set_code(self):
+        Receta.auto_increment_code += 1
+        codigo = Receta.auto_increment_code
+        self._code = str(code)
 
-    def get_codigo(self):
-        return self._codigo
+    def get_code(self):
+        return self._code
 
-    def set_nombre(self, nombre):
-        self._nombre = nombre
+    def set_name(self, name):
+        self._name = name
 
-    def get_nombre(self):
-        return self._nombre
+    def get_name(self):
+        return self._name
 
-    def set_tiempo_preparacion(self, tiempo_preparacion):
-        self._tiempo_preparacion = tiempo_preparacion
+    def set_time(self, time):
+        self._time = int(time)
 
-    def get_tiempo_preparacion(self):
-        return self._tiempo_preparacion
+    def get_time(self):
+        return self._time
+
+    def set_status(self, status):
+        self._status = status
+            
+    def get_status(self):
+        return self._status
 
     def set_detalle_recetas(self, detalle_receta):
         self._ListDetalleRecetas[detalle_receta.get_codigo()] = detalle_receta
@@ -61,51 +69,28 @@ class Receta:
 
     def get_calificaciones(self):
         return self._ListCalificaciones
-
-    def editar_receta(self, opcion, valor):
-        if opcion == '1':
-            self.set_nombre(valor)
-        elif opcion == '2':
-            self.set_tiempo_preparacion(valor)
-        elif opcion == '3':
-            for detalle in valor:
-                DetalleReceta(detalle.get('cantidad'), detalle.get('producto'), self)
-        elif opcion == '4':
-            detalle = self.get_detalle_pedidos.get(valor.get('codigo'))
-            detalle.set_cantidad(valor.get('cantidad'))
-        elif opcion == '5':
-            DetalleReceta.delete_detalle(valor)
-
+        
     def __str__(self):
-        Str = EN.men.get('formatoReceta') % (
-            self.get_codigo(), self.get_nombre(),
-            self.get_tiempo_preparacion())
+        code = self.get_code()
+        name = self.get_name()
+        time = self.get_time()
+        status = self.get_status()
+        Str = EN.men.get('receta_pattern') % (
+            code, name,
+            time, status)
         #concatenado el detalle receta
         for detalle in self._ListDetalleRecetas.values():
             Str+= detalle.__str__() + '\n'
         return Str
 
     @staticmethod
-    def get_receta_by_codigo(codigo):
-        return Receta.ListRecetas.get(codigo)
+    def get_receta_by_code(code):
+        return Receta.ListRecetas.get(code)
     
     @staticmethod
-    def get_receta_by_nombre(nombre):
+    def get_receta_by_name(name):
         ListCoincidencias = []
         for receta in Receta.ListRecetas.values():
-            if receta.get_nombre().lower().find(nombre.lower()) != -1:
+            if receta.get_name().lower().find(name.lower()) != -1:
                 ListCoincidencias.append(receta)
         return ListCoincidencias
-'''
-    @staticmethod
-    def get_posicion_lista(codigo):
-        for i in range(0,len(Producto.ListProductos)):
-            if Producto.ListProductos[i].get_codigo() == codigo:
-                return i
-                break
-        return -1
-
-    @staticmethod
-    def delete_element(posicion):
-        Producto.ListProductos.pop(posicion)
-'''

@@ -146,7 +146,7 @@ class ES:
     2. Nuevo producto
     3. Editar producto
     4. Activar/Desactivar producto
-    5. Añadir existencias
+    5. Añadir/eliminar existencias
     6. <-Atras
     Seleccione una opción: ''',
     'menu_producto_admin' : '''
@@ -155,7 +155,7 @@ class ES:
     2. Nuevo producto
     3. Editar producto
     4. Activar/Desactivar producto
-    5. Añadir existencias
+    5. Añadir/eliminar existencias
     6. <-Atras
     Seleccione una opción: ''',
     'menu_producto_user' : '''
@@ -251,20 +251,97 @@ class ES:
     1. Si
     2. No
     Seleccione una opción: ''',
-
-
-
-
-
-
-
-    
-    'ver_producto' : '''
-    1. Buscar producto por código
-    2. Buscar producto por nombre
+    'search_producto' : '''
+    Buscar producto por:
+    1. Código
+    2. Nombre
     3. <-Atras
+    Seleccione una opción: ''',
+    'code' : 'Ingrese el codigo: ',
+    'code_not_found' : 'Codigo no encontrado',
+    'quantity' : 'Ingrese la cantidad: ',
+    'important' : '''
+    Es necesario?
+    1. Si
+    2. No
+    Seleccione una opción: ''',
+    'measurement' : '''
+    Tipo de medicion:
+    1. N/A
+    2. ml
+    3. gr
+    Seleccione una opción: ''',
+    'unlimited' : '''
+    Ilimitado?
+    1. Si
+    2. No
+    Seleccione una opción: ''',
+    'producto_pattern' : '''
+    Código: %s
+    Nombre: %s
+    Cantidad: %s %s
+    Necesario: %s
+    Estado: %s
     ''',
-    
+    'producto_pattern_user' : '''
+    Código: %s
+    Nombre: %s
+    ''',
+    'text_unlimited': 'Ilimitado',
+    'search_prducto_header' : '# codigo nombre', 
+    'edit_producto' : '''
+    Modificar
+    1. Nombre
+    2. cantidad
+    3. necesario
+    4. medicion
+    5. ilimitado
+    6. <-Atras
+    Seleccione una opción: ''',
+    'operator' :'''
+    Desea:
+    +. Sumar
+    -. Restar
+    Seleccione una opción: ''',
+    'receta_pattern' : '''
+    Código: %s
+    Nombre: %s
+    Tiempo: %d min
+    Estado: %s
+    ''',
+    'detalle_receta_pattern' : '''
+    Código: %s Nombre: %s Cantidad: %d %s''',
+    'search_receta' : '''
+    Buscar receta por:
+    1. Código
+    2. Nombre
+    3. <-Atras
+    Seleccione una opción: ''',
+    'search_receta_header' : '# codigo nombre', 
+    'time' : 'Ingrese el tiempo de preparacion: ',
+    'new_detalle_receta' :'''
+    1. Agregar Ingredientes
+    2. Editar cantidades
+    3. Eliminar Ingredientes
+    4. Finalizar
+    Seleccione una opción: ''',
+    'detalle_receta_header' : '# cantidad nombre',
+    'edit_receta' : '''
+    Modificar:
+    1. Nombre
+    2. Tiempo
+    3. Agregar Ingrediente
+    4. Modificar cantidad
+    5. Eliminar Ingrediente
+    6. <-Atras
+    Seleccione una opción: ''',
+
+
+
+
+
+
+
     'menu_calificacion' : '''
     Menú Calificaciónes
     1. Ver calificación
@@ -275,77 +352,11 @@ class ES:
     ''',
     
     
-    #Mensajes de producto
-    'opcionesProducto' : '# codigo nombre', 
-    'codigo' : 'Ingrese el codigo: ',
-    'editar_producto' : '''
-    Escoja una opcion a modificar:
-    1. Nombre
-    2. Categoria
-    3. cantidad
-    4. necesario
-    5. edicion
-    6. ilimitado
-    7. <-Atras
-    ''',
-    'categoria' : '''
-    Categoria:
-    Escoja una opcion
-    1. Basicos
-    2. Pastas
-    3. Liquidos
-    4. Snacks
-    5. Bebidas
-    Seleccione una opción: 
-    ''',
-    'cantidad' : 'Ingrese la cantidad: ',
-    'necesario' : '''
-    Es necesario?
-    1. Si
-    2. No
-    ''',
-    'medicion' : '''
-    Tipo de medicion:
-    Escoja una opcion
-    1. N/A
-    2. ml
-    3. gr
-    Seleccione una opción: 
-    ''',
-    'ilimitado' : '''
-    Ilimitado?
-    1. Si
-    2. No
-    ''',
-    'codeNotFound' : 'codigo no encontrado',
-    'formatoProducto' : '''
-    Código: %s
-    Nombre: %s
-    Categoria: %s
-    Cantidad: %s %s
-    Necesario: %s
-    ''',
-    #Receta
-    'editar_receta' : '''
-    Escoja una opcion a modificar:
-    1. Nombre
-    2. Tiempo
-    3. Agregar Ingrediente
-    4. Modificar cantidad
-    5. Eliminar Ingrediente
-    6. <-Atras
-    ''',
-    'opcionesReceta' : '# codigo nombre', 
     
-    'cabeceraDetalle' : '# cantidad nombre',
-    'formatoDetalleReceta' : '''
-    Código: %s Nombre: %s Cantidad: %s %s
-    ''',
-    'formatoReceta' : '''
-    Código: %s
-    Nombre: %s
-    Tiempo: %d
-    ''',
+    
+    
+    
+    
     #Pedido
     'editar_pedido' : '''
     Escoja una opcion a modificar:
@@ -366,9 +377,6 @@ class ES:
     1. Buscar por código
     2. <-Atras
     ''',
-    'formatoDetallePedido' : '''
-    Código: %s Nombre: %s Cantidad: %d
-    ''',
     'formatoPedido' : '''
     Código: %s
     fecha: %s
@@ -376,28 +384,12 @@ class ES:
     usuario: %s
     chef: %s
     ''',
-    #Mensaje, producto
-    'nombre' : 'Digite el nombre: ',
-    'fecha_nac' : 'Digite la fecha de nacimiento(dd/mm/yyyy): ',
-    'contrasena' : 'Digite la contraseña: ',
-    'idFound' : 'Identificación existente',
-    
-    
     'yesNo' : '''
     Esta seguro?
     1. Si
     2. No
     ''',
-    'ver_receta' : '''
-    1. Buscar por código
-    2. Buscar por nombre
-    3. <-Atras
-    ''',
-    'tiempo' : 'Ingrese el tiempo de preparacion: ',
-    'detalleReceta' :'''
-    1. Agregar Ingredientes
-    2. Editar cantidades
-    3. Eliminar Ingredientes
-    4. Finalizar
-    '''
+    
+    
+    
     }
