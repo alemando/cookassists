@@ -1,6 +1,6 @@
 from receta import Receta
 from chef import Chef
-from mensajes import Mensajes
+from languageEN import EN
 
 class Calificacion:
     

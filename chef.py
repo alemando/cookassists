@@ -31,18 +31,17 @@ class Chef(Usuario):
         return self._status_chef
 
     def set_calificaciones_chef(self, calificacion):
-        self._ListCalificacionesChef[calificacion.get_codigo()] = calificacion
+        self._ListCalificacionesChef[calificacion.get_code()] = calificacion
 
     def get_calificaciones_chef(self):
         return self._ListCalificacionesChef
 
     def set_pedidos_chef(self, pedido):
-        self._ListPedidosChef[pedido.get_codigo()] = pedido
+        self._ListPedidosChef[pedido.get_code()] = pedido
 
     def get_pedidos_chef(self):
         return self._ListPedidosChef
     
-    #Esta bien?
     def str_chef(self):
         admin = self.get_admin()
         if admin:
@@ -62,6 +61,20 @@ class Chef(Usuario):
                 born_date, status)
         return Str
 
+    @staticmethod
+    def see_chef():
+        Str = EN.men.get('str_see_user_header')
+        for chef in Chef.ListChefs.values():
+            name = chef.get_name()
+            email = chef.get_email()
+            status = chef.get_status_chef()
+            if status:
+                status = EN.men.get('active')
+            else:
+                status = EN.men.get('inactive')
+            Str += EN.men.get('str_see_user') % (
+                    name, email, status)
+        return Str
 
     @staticmethod
     def get_chef_by_email(email):

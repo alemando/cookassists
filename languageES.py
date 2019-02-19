@@ -26,36 +26,38 @@ class ES:
     'user_not_found' : 'Usuario no encontrado',
     'menu_main_admin' : '''
     Menú
-    1. Menu Productos
-    2. Menu Recetas
-    3. Menu Pedidos
-    4. Menu Calificaciones
-    5. Menu Chefs
-    6. Menu Usuarios
-    7. Menu Idiomas
-    8. Menu Datos
-    9. Cerrar Sesión
+    1. Menu del día
+    2. Menu Productos
+    3. Menu Recetas
+    4. Menu Pedidos
+    5. Menu Calificación
+    6. Menu Chefs
+    7. Menu Usuario
+    8. Menu Idiomas
+    9. Menu Datos
+    10. Cerrar Sesión
     Seleccione una opción: ''',
     'menu_main_chef' : '''
     Menú
-    1. Menu Productos
-    2. Menu Recetas
-    3. Menu Pedidos
+    1. Menu del día
+    2. Menu Productos
+    3. Menu Recetas
+    4. Menu Pedidos
+    5. Menu Calificación
+    6. Menu Chefs
+    7. Menu Usuario
+    8. Menu Idiomas
+    9. Cerrar Sesión
+    Seleccione una opción: ''',
+    'menu_main_user' : '''
+    Menú
+    1. Menu del día
+    2. Menu Pedidos
+    3. Menu Calificación
     4. Menu Chefs
     5. Menu Usuario
     6. Menu Idiomas
     7. Cerrar Sesión
-    Seleccione una opción: ''',
-    'menu_main_user' : '''
-    Menú
-    1. Menu Productos
-    2. Menu Recetas
-    3. Menu Pedidos
-    4. Menu Calificaciones
-    5. Menu Chefs
-    6. Menu Usuario
-    7. Menu Idiomas
-    8. Cerrar Sesión
     Seleccione una opción: ''',
     'menu_data' : '''
     Menú Datos
@@ -69,22 +71,24 @@ class ES:
     Seleccione una opción: ''',
     'menu_usuario_admin': '''
     Menú Usuario
-    1. Buscar usuario
-    2. Nuevo usuario
-    3. Editar mi usuario
-    4. Cambiar permisos
-    5. Activar/Desactivar usuario
-    6. <-Atras
+    1. Ver usuarios
+    2. Buscar usuario
+    3. Nuevo usuario
+    4. Editar mi usuario
+    5. Cambiar permisos
+    6. Activar/Desactivar usuario
+    7. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_admin_is_chef': '''
     Menú Usuario
-    1. Buscar usuario
-    2. Nuevo usuario
-    3. Editar mi usuario
-    4. Cambiar permisos
-    5. Activar/Desactivar usuario
-    6. Cambiar modo de inicio
-    7. <-Atras
+    1. Ver usuarios
+    2. Buscar usuario
+    3. Nuevo usuario
+    4. Editar mi usuario
+    5. Cambiar permisos
+    6. Activar/Desactivar usuario
+    7. Cambiar modo de inicio
+    8. <-Atras
     Seleccione una opción: ''',
     'menu_usuario_chef': '''
     Menú Usuario
@@ -121,71 +125,49 @@ class ES:
     Fecha nacimiento: %s
     Estado: %s
     ''',
+    'str_see_user_header' : 'Nombre        Email         Estado \n',
+    'str_see_user' : '%s %s %s \n',
     'active' : 'Activo',
     'inactive' : 'Inactivo',
-    'search_user_header' : '# Email                Nombre',
+    'search_user_header' : '# Email                Nombre \n',
     'option' : 'Seleccione una opción: ',
     'close' : 'Programa Cerrado',
     'menu_chef_admin' : '''
     Menú Chef
-    1. Buscar chef
-    2. Nuevo chef
-    3. Activar/Desactivar chef
-    4. Promover a chef
-    5. Ver mejor chef
-    6. <-Atras
+    1. Ver Chefs
+    2. Buscar chef
+    3. Nuevo chef
+    4. Activar/Desactivar chef
+    5. Promover a chef
+    6. Ver mejor chef
+    7. <-Atras
     Seleccione una opción: ''',
     'menu_chef_user' : '''
     Menú Chef
     1. Ver mejor chef
     2. <-Atras
     Seleccione una opción: ''',
-    'menu_producto_chef' : '''
+    'menu_producto' : '''
     Menú Productos
-    1. Buscar producto
-    2. Nuevo producto
-    3. Editar producto
-    4. Activar/Desactivar producto
-    5. Añadir/eliminar existencias
-    6. <-Atras
+    1. ver productos
+    2. Buscar producto
+    3. Nuevo producto
+    4. Editar producto
+    5. Activar/Desactivar producto en menú
+    6. Activar/Desactivar producto
+    7. Ver productos con pocas existencias
+    8. Añadir/eliminar existencias
+    9. <-Atras
     Seleccione una opción: ''',
-    'menu_producto_admin' : '''
-    Menú Productos
-    1. Buscar producto
-    2. Nuevo producto
-    3. Editar producto
-    4. Activar/Desactivar producto
-    5. Añadir/eliminar existencias
-    6. <-Atras
-    Seleccione una opción: ''',
-    'menu_producto_user' : '''
-    Menú Productos
-    1. Buscar producto
-    2. <-Atras
-    Seleccione una opción: ''',
-    'menu_receta_chef' : '''
+    'menu_receta' : '''
     Menú Receta
-    1. Buscar receta
-    2. Nueva receta
-    3. Editar receta
-    4. Activar/Desactivar receta
-    5. Ver mejores recetas
-    6. <-Atras
-    Seleccione una opción: ''',
-    'menu_receta_admin' : '''
-    Menú Receta
-    1. Buscar receta
-    2. Nueva receta
-    3. Editar receta
-    4. Activar/Desactivar receta
-    5. Ver mejores recetas
-    6. <-Atras
-    Seleccione una opción: ''',
-    'menu_receta_user' : '''
-    Menú Receta
-    1. Buscar receta
-    2. Ver mejores recetas
-    3. <-Atras
+    1. Ver recetas
+    2. Buscar receta
+    3. Nueva receta
+    4. Editar receta
+    5. Activar/Desactivar receta en menú
+    6. Ver mejores recetas
+    7. <-Atras
     Seleccione una opción: ''',
     'menu_pedio_chef' : '''
     Menú Pedido
@@ -260,11 +242,6 @@ class ES:
     'code' : 'Ingrese el codigo: ',
     'code_not_found' : 'Codigo no encontrado',
     'quantity' : 'Ingrese la cantidad: ',
-    'important' : '''
-    Es necesario?
-    1. Si
-    2. No
-    Seleccione una opción: ''',
     'measurement' : '''
     Tipo de medicion:
     1. N/A
@@ -280,23 +257,22 @@ class ES:
     Código: %s
     Nombre: %s
     Cantidad: %s %s
-    Necesario: %s
     Estado: %s
+    Menú:
     ''',
     'producto_pattern_user' : '''
     Código: %s
     Nombre: %s
     ''',
     'text_unlimited': 'Ilimitado',
-    'search_prducto_header' : '# codigo nombre', 
+    'search_producto_header' : '# codigo nombre', 
     'edit_producto' : '''
     Modificar
     1. Nombre
     2. cantidad
-    3. necesario
-    4. medicion
-    5. ilimitado
-    6. <-Atras
+    3. medicion
+    4. ilimitado
+    5. <-Atras
     Seleccione una opción: ''',
     'operator' :'''
     Desea:
@@ -309,8 +285,7 @@ class ES:
     Tiempo: %d min
     Estado: %s
     ''',
-    'detalle_receta_pattern' : '''
-    Código: %s Nombre: %s Cantidad: %d %s''',
+    'detalle_receta_pattern' : 'Código: %s Nombre: %s Cantidad: %d %s',
     'search_receta' : '''
     Buscar receta por:
     1. Código
@@ -335,9 +310,18 @@ class ES:
     5. Eliminar Ingrediente
     6. <-Atras
     Seleccione una opción: ''',
-
-
-
+    'str_see_producto_header' : 'Codigo Nombre       Estado  Menú\n',
+    'str_see_producto' : '%s %s %s %s \n',
+    'format_3_str' : '%s %s %s \n'
+    'status_menu' : '''
+    Activar/Desactivar en menú:
+    1. Activar
+    2. Desactivar
+    Seleccione una opción: ''',
+    'str_see_low_producto_header' : 'Codigo Nombre       cantidad \n',
+    'str_see_low_producto' : '%s %s %d %s \n',
+    'str_see_receta_header' : 'Codigo Nombre       Estado  Menú\n',
+    'str_see_receta' : '%s %s %s %s \n',
 
 
 

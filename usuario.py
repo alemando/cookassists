@@ -62,7 +62,7 @@ class Usuario:
         return self._status
 
     def set_calificaciones(self, calificacion):
-        self._ListCalificaciones[calificacion.get_codigo()] = calificacion
+        self._ListCalificaciones[calificacion.get_code()] = calificacion
 
     def set_promote_calificaciones(self, calificaciones):
         for calificacion in calificaciones:
@@ -72,7 +72,7 @@ class Usuario:
         return self._ListCalificaciones
 
     def set_pedidos(self, pedido):
-        self._ListPedidos[pedido.get_codigo()] = pedido
+        self._ListPedidos[pedido.get_code()] = pedido
 
     def set_promote_pedidos(self, pedidos):
         for pedido in pedidos:
@@ -80,6 +80,8 @@ class Usuario:
 
     def get_pedidos(self):
         return self._ListPedidos
+
+    
 
     def __str__(self):
         admin = self.get_admin()
@@ -100,6 +102,21 @@ class Usuario:
                 born_date, status)
         return Str
 
+    @staticmethod
+    def see_user():
+        Str = EN.men.get('str_see_user_header')
+        for user in Usuario.ListUsuarios.values():
+            name = user.get_name()
+            email = user.get_email()
+            status = user.get_status()
+            if status:
+                status = EN.men.get('active')
+            else:
+                status = EN.men.get('inactive')
+            Str += EN.men.get('str_see_user') % (
+                    name, email, status)
+        return Str
+        
     @staticmethod
     def get_user_by_email(email):
         return Usuario.ListUsuarios.get(email)

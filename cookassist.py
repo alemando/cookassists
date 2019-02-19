@@ -4,7 +4,7 @@ from languageES import ES
 from datos import Datos
 from usuario import Usuario
 from chef import Chef
-#from calificacion import Calificacion
+from calificacion import Calificacion
 from pedido import Pedido
 from receta import Receta
 from producto import Producto
@@ -47,36 +47,38 @@ class CookAssist:
         option = None
         if CookAssist.chef:
             menu = {
-                '1': CookAssist.menu_producto,
-                '2': CookAssist.menu_receta,
-                '3': CookAssist.menu_pedido,
-                '4': CookAssist.menu_chef,
-                '5': CookAssist.menu_usuario,
-                '6': CookAssist.menu_language
+                '1': CookAssist.menu_day,
+                '2': CookAssist.menu_producto,
+                '3': CookAssist.menu_receta,
+                '4': CookAssist.menu_pedido,
+                '5': CookAssist.menu_calificacion,
+                '6': CookAssist.menu_chef,
+                '7': CookAssist.menu_usuario,
+                '8': CookAssist.menu_language
             }
             option = input(CookAssist.mensaje('menu_main_chef', False))
         
         elif CookAssist.user.get_admin():
             menu = {
-                '1': CookAssist.menu_producto,
-                '2': CookAssist.menu_receta,
-                '3': CookAssist.menu_pedido,
-                '4': CookAssist.menu_calificacion,
-                '5': CookAssist.menu_chef,
-                '6': CookAssist.menu_usuario,
-                '7': CookAssist.menu_language,
-                '8': CookAssist.menu_data
+                '1': CookAssist.menu_day,
+                '2': CookAssist.menu_producto,
+                '3': CookAssist.menu_receta,
+                '4': CookAssist.menu_pedido,
+                '5': CookAssist.menu_calificacion,
+                '6': CookAssist.menu_chef,
+                '7': CookAssist.menu_usuario,
+                '8': CookAssist.menu_language,
+                '9': CookAssist.menu_data
             }
             option = input(CookAssist.mensaje('menu_main_admin', False))
         else:
             menu = {
-                '1': CookAssist.menu_producto,
-                '2': CookAssist.menu_receta,
-                '3': CookAssist.menu_pedido,
-                '4': CookAssist.menu_calificacion,
-                '5': CookAssist.menu_chef,
-                '6': CookAssist.menu_usuario,
-                '7': CookAssist.menu_language
+                '1': CookAssist.menu_day,
+                '2': CookAssist.menu_pedido,
+                '3': CookAssist.menu_calificacion,
+                '4': CookAssist.menu_chef,
+                '5': CookAssist.menu_usuario,
+                '6': CookAssist.menu_language
                 
             }
             option = input(CookAssist.mensaje('menu_main_user', False))
@@ -149,21 +151,23 @@ class CookAssist:
             if chef:
                 if chef.get_status_chef():
                     menu = {
-                        '1': CookAssist.search_user,
-                        '2': CookAssist.new_user,
-                        '3': CookAssist.edit_my_user,
-                        '4': CookAssist.change_to_admin,
-                        '5': CookAssist.user_status,
-                        '6': CookAssist.change_login_way
+                        '1': CookAssist.see_user,
+                        '2': CookAssist.search_user,
+                        '3': CookAssist.new_user,
+                        '4': CookAssist.edit_my_user,
+                        '5': CookAssist.change_to_admin,
+                        '6': CookAssist.user_status,
+                        '7': CookAssist.change_login_way
                     }
                     option = input(CookAssist.mensaje('menu_usuario_admin_is_chef', False))
                 else:
                     menu = {
-                        '1': CookAssist.search_user,
-                        '2': CookAssist.new_user,
-                        '3': CookAssist.edit_my_user,
-                        '4': CookAssist.change_to_admin,
-                        '5': CookAssist.user_status
+                        '1': CookAssist.see_user,
+                        '2': CookAssist.search_user,
+                        '3': CookAssist.new_user,
+                        '4': CookAssist.edit_my_user,
+                        '5': CookAssist.change_to_admin,
+                        '6': CookAssist.user_status
                     }
                     option = input(CookAssist.mensaje('menu_usuario_admin', False))
             else:
@@ -212,7 +216,10 @@ class CookAssist:
             status = chef.get_status_chef()
             if status:
                 CookAssist.change_login_way()
-
+    @staticmethod
+    def see_user():
+        print(Usuario.see_user())
+    
     @staticmethod
     def new_user():
         admin = False
@@ -247,13 +254,18 @@ class CookAssist:
             name = input(CookAssist.mensaje('name', False))
             users = Usuario.get_user_by_name(name)
             if len(users) != 0:
-                CookAssist.mensaje('search_user_header')
+                Str = CookAssist.mensaje('search_user_header', False)
                 for i in range(len(users)):
                     num = str(i + 1)
-                    print(num +' '+ users[i].get_email() +' '+ users[i].get_name())
+                    email = users[i].get_email()
+                    name = users[i].get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, email, name)
+                print(Str)
                 option = int(input(CookAssist.mensaje('option', False)))
-                print(users[(option-1)])
-                return users[(option-1)]
+                user = users[(option-1)]
+                print(user)
+                return user
             else:
                 CookAssist.mensaje('not_match')
 
@@ -322,11 +334,12 @@ class CookAssist:
         option = None
         if CookAssist.user.get_admin():
             menu = {
-                '1': CookAssist.search_chef,
-                '2': CookAssist.new_chef,
-                '3': CookAssist.chef_status,
-                '4': CookAssist.promote_to_chef,
-                '5': CookAssist.see_best_chef
+                '1': CookAssist.see_chef,
+                '2': CookAssist.search_chef,
+                '3': CookAssist.new_chef,
+                '4': CookAssist.chef_status,
+                '5': CookAssist.promote_to_chef,
+                '6': CookAssist.see_best_chef
             }
             option = input(CookAssist.mensaje('menu_chef_admin', False))
         else:
@@ -336,7 +349,10 @@ class CookAssist:
             option = input(CookAssist.mensaje('menu_chef_user', False))
         return menu.get(option)
 
-    #Metodo necesario?
+    @staticmethod
+    def see_chef():
+        print(Chef.see_chef())
+
     @staticmethod
     def search_chef():
         option = input(CookAssist.mensaje('search_chef', False))
@@ -354,13 +370,18 @@ class CookAssist:
             name = input(CookAssist.mensaje('name', False))
             chefs = Chef.get_chef_by_name(name)
             if len(chefs) != 0:
-                CookAssist.mensaje('search_user_header')
+                Str = CookAssist.mensaje('search_user_header', False)
                 for i in range(len(chefs)):
                     num = str(i + 1)
-                    print(num +' '+ chefs[i].get_email() +' '+ chefs[i].get_name())
+                    email = chefs[i].get_email()
+                    name = chefs[i].get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, email, name)
+                print(Str)
                 option = int(input(CookAssist.mensaje('option', False)))
-                print(chefs[(option-1)].str_chef())
-                return chefs[(option-1)]
+                chef = chefs[(option-1)]
+                print(chef.str_chef())
+                return chef
             else:
                 CookAssist.mensaje('not_match')
 
@@ -414,44 +435,31 @@ class CookAssist:
     #Producto
     @staticmethod
     def menu_producto():
-        menu = {}
-        option = None
-        if CookAssist.chef:
-            menu = {
-                '1': CookAssist.search_producto,
-                '2': CookAssist.new_producto,
-                '3': CookAssist.edit_producto,
-                '4': CookAssist.producto_status,
-                '5': CookAssist.change_quantity
-            }
-            option = input(CookAssist.mensaje('menu_producto_chef', False))
-        elif CookAssist.user.get_admin():
-            menu = {
-                '1': CookAssist.search_producto,
-                '2': CookAssist.new_producto,
-                '3': CookAssist.edit_producto,
-                '4': CookAssist.producto_status,
-                '5': CookAssist.change_quantity
-            }
-            option = input(CookAssist.mensaje('menu_producto_admin', False))
-        else:
-            menu = {
-                '1': CookAssist.search_producto
-            }
-            option = input(CookAssist.mensaje('menu_producto_user', False))
+        menu = {
+            '1': CookAssist.see_producto,
+            '2': CookAssist.search_producto,
+            '3': CookAssist.new_producto,
+            '4': CookAssist.edit_producto,
+            '5': CookAssist.producto_status_menu,
+            '6': CookAssist.producto_status,
+            '7': CookAssist.see_low_producto,
+            '8': CookAssist.change_quantity
+        }
+        option = input(CookAssist.mensaje('menu_producto', False))
         return menu.get(option)
-    
+
+    @staticmethod
+    def see_producto():
+        print(Producto.see_producto())
+
     @staticmethod
     def search_producto():
         option = input(CookAssist.mensaje('search_producto', False))
         if option == '1':
             code = input(CookAssist.mensaje('code', False))
-            producto = Producto.get_producto_by_code(code, CookAssist.user.get_admin())
+            producto = Producto.get_producto_by_code(code)
             if producto is not None:
-                if CookAssist.user.get_admin() or CookAssist.chef:
-                    print(producto)
-                else:
-                    print(producto.str_user())
+                print(producto)
                 return producto
             else:
                 CookAssist.mensaje('code_not_found')
@@ -459,18 +467,19 @@ class CookAssist:
             
         elif option == '2':
             name = input(CookAssist.mensaje('name', False))
-            producto = Producto.get_producto_by_name(name, CookAssist.user.get_admin())
+            producto = Producto.get_producto_by_name(name)
             if len(producto) != 0:
-                CookAssist.mensaje('search_prducto_header')
+                Str = CookAssist.mensaje('search_producto_header', False)
                 for i in range(len(producto)):
                     num = str(i + 1)
-                    print(num +' '+ producto[i].get_code().zfill(6) +' '+ producto[i].get_name())
+                    code = producto[i].get_code().zfill(6)
+                    name = producto[i].get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, code, name)
+                print(Str)
                 option = int(input(CookAssist.mensaje('option', False)))
                 producto = producto[(option-1)]
-                if CookAssist.user.get_admin() or CookAssist.chef:
-                    print(producto)
-                else:
-                    print(producto.str_user())
+                print(producto)
                 return producto
             else:
                 CookAssist.mensaje('not_match')
@@ -479,11 +488,6 @@ class CookAssist:
     def new_producto():
         name = input(CookAssist.mensaje('name', False))
         quantity = input(CookAssist.mensaje('quantity', False))
-        important = input(CookAssist.mensaje('important', False))
-        if important == '1':
-            important = True
-        else:
-            important = False
         measurement = input(CookAssist.mensaje('measurement', False))
         if measurement == '1':
             measurement = 'N/A'
@@ -496,7 +500,7 @@ class CookAssist:
             unlimited = True
         else:
             unlimited = False
-        Producto(name, quantity, important, measurement, unlimited)
+        Producto(name, quantity, measurement, unlimited)
 
     @staticmethod
     def edit_producto():
@@ -510,15 +514,11 @@ class CookAssist:
                 quantity = input(CookAssist.mensaje('quantity', False))
                 producto.set_quantity(quantity)
             elif option == '3':
-                important = input(CookAssist.mensaje('important', False))
-                producto.set_important(important)
-            elif option == '4':
                 measurement = input(CookAssist.mensaje('measurement', False))
                 producto.set_measurement(measurement)
-            elif option == '5':
+            elif option == '4':
                 unlimited = input(CookAssist.mensaje('unlimited', False))
                 producto.set_unlimited(unlimited)
-
     
     @staticmethod
     def producto_status():
@@ -530,7 +530,20 @@ class CookAssist:
                 status = False
             producto.set_status(status)
 
+    @staticmethod
+    def producto_status_menu():
+        producto = CookAssist.search_producto()
+        if producto:
+            status = True
+            option = input(CookAssist.mensaje('status_menu', False))
+            if option == '2':
+                status = False
+            producto.set_status_menu(status)
 
+    @staticmethod
+    def see_low_producto():
+        print(Producto.see_low_producto())
+    
     @staticmethod
     def change_quantity():
         producto = CookAssist.search_producto()
@@ -546,32 +559,15 @@ class CookAssist:
     #Receta
     @staticmethod
     def menu_receta():
-        menu = {}
-        option = None
-        if CookAssist.chef:
-            menu = {
-                '1': CookAssist.search_receta,
-                '2': CookAssist.new_receta,
-                '3': CookAssist.edit_receta,
-                '4': CookAssist.receta_status,
-                '5': CookAssist.best_recetas
-            }
-            option = input(CookAssist.mensaje('menu_receta_chef', False))
-        elif CookAssist.user.get_admin():
-            menu = {
-                '1': CookAssist.search_receta,
-                '2': CookAssist.new_receta,
-                '3': CookAssist.edit_receta,
-                '4': CookAssist.receta_status,
-                '5': CookAssist.best_recetas
-            }
-            option = input(CookAssist.mensaje('menu_receta_admin', False))
-        else:
-            menu = {
-                '1': CookAssist.search_receta,
-                '2': CookAssist.best_recetas
-            }
-            option = input(CookAssist.mensaje('menu_receta_user', False))
+        menu = {
+            '1': CookAssist.see_receta,
+            '2': CookAssist.search_receta,
+            '3': CookAssist.new_receta,
+            '4': CookAssist.edit_receta,
+            '5': CookAssist.receta_status_menu,
+            '6': CookAssist.best_recetas
+        }
+        option = input(CookAssist.mensaje('menu_receta', False))
         return menu.get(option)
 
     @staticmethod
@@ -655,18 +651,24 @@ class CookAssist:
             elif option == '3':
                 for i in range(len(detalle)):
                     num = str(i + 1)
-                    print(num +' '+ detalle[i].get('cantidad').zfill(7) 
+                    print(num +' '+ detalle[i].get('quantity').zfill(7) 
                             +' '+ detalle[i].get('producto').get_name())
-                posicionDetalle = int(input(CookAssist.mensaje('option', False)))
-                detalle.pop(posicionDetalle-1)
+                pos_detalle = int(input(CookAssist.mensaje('option', False)))
+                detalle.pop(pos_detalle-1)
             
             option = input(CookAssist.mensaje('new_detalle_receta', False))
         return detalle
 
     #menu
     @staticmethod
-    def receta_status():
-        pass
+    def receta_status_menu():
+        producto = CookAssist.search_producto()
+        if producto:
+            status = True
+            option = input(CookAssist.mensaje('status_menu', False))
+            if option == '2':
+                status = False
+            producto.set_status_menu(status)
 
     @staticmethod
     def best_recetas():
@@ -783,6 +785,10 @@ class CookAssist:
             opcion = input(CookAssist.mensaje('opcion', False))
         return detalle
 
+    @staticmethod
+    def menu_day():
+        pass
+
     #Calificacion
     @staticmethod
     def menu_calificacion():
@@ -817,6 +823,7 @@ class CookAssist:
         return menu.get(option)
         
 
+    
     @staticmethod
     def ver_calificacion():
         pass
