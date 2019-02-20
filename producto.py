@@ -78,7 +78,7 @@ class Producto:
         if status:
             Producto.menu[self.get_code()] = self
         else:
-            Producto.menu.pop(self.get_code())
+            Producto.menu.pop(self.get_code(), 'error')
         self._status_menu = status
             
     def get_status_menu(self):
@@ -101,6 +101,20 @@ class Producto:
             self._quantity += quantity 
         else:
             self._quantity -= quantity
+
+    def check_quantity(self, quantity):
+        producto_quantity = self.get_quantity()
+        return producto_quantity // quantity
+
+    def check_producto(self, quantity):
+        num_times = self.get_quantity()
+        if num_times >= quantity:
+            return True
+        elif num_times == 0:
+            Producto.menu.pop(self.get_code())
+            return EN.men.get('sorry_producto')
+        else:
+            return EN.men.get('only_receta') % (num_times)
 
     def __str__(self):
         code = self.get_code() 

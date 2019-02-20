@@ -74,7 +74,24 @@ class Receta:
 
     def get_calificaciones(self):
         return self._ListCalificaciones
-        
+    
+    def check_receta(self, quantity):
+        num_times = quantity
+        for detalle in self.get_detalle_recetas().values():
+            receta_times = detalle.check_quantity(detalle.get_quantity())
+            if receta_times < num_times:
+                num_times = receta_times
+        if num_times >= quantity:
+            return True
+        elif num_times == 0:
+            Receta.menu.pop(self.get_code())
+            return EN.men.get('sorry_receta')
+        else:
+            return EN.men.get('only_unity') % (num_times)
+
+    def add_more_detalle_recetas(self, detalle_receta):
+        for detalle in detalle_receta:
+            DetalleReceta(detalle.get('quantity'), detalle.get('producto'), self)
     def __str__(self):
         code = self.get_code()
         name = self.get_name()
@@ -83,30 +100,25 @@ class Receta:
         Str = EN.men.get('receta_pattern') % (
             code, name,
             time, status)
-        #concatenado el detalle receta
-        for detalle in self._ListDetalleRecetas.values():
-            Str+= detalle.__str__() + '\n'
+        Str+= EN.men.get('detalle_receta_pattern_header')
+        for detalle in self.get_detalle_recetas().values():
+            Str+= detalle.__str__()
         return Str
 
     @staticmethod
-    def see_producto():
+    def see_receta():
         Str = EN.men.get('str_see_receta_header')
-        for producto in Producto.ListProductos.values():
-            code = producto.get_code().zfill(6)
-            name = producto.get_name()
-            status = producto.get_status()
-            if status:
-                status = EN.men.get('active')
-            else:
-                status = EN.men.get('inactive')
-            
-            status_menu = producto.get_status_menu()
+        for receta in Receta.ListRecetas.values():
+            code = receta.get_code().zfill(6)
+            name = receta.get_name()
+            time = receta.get_time()
+            status_menu = receta.get_status_menu()
             if status_menu:
                 status_menu = EN.men.get('active')
             else:
                 status_menu = EN.men.get('inactive')
-            Str += EN.men.get('str_see_producto') % (
-                    code, name, status, status_menu)
+            Str += EN.men.get('str_see_receta') % (
+                    code, name, time, status_menu)
         return Str
 
 

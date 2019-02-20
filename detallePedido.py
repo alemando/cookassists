@@ -6,36 +6,36 @@ class DetallePedido:
     ListDetallePedidos = {}
 
     def __init__(
-        self, numero, 
-        cantidad, detalle, pedido):
+        self, num, 
+        quantity, detalle, pedido):
         '''ATTRIBUTES
-            self._codigo
-            self._cantidad
+            self._code
+            self._quantity
             self._pedido
             self._receta
             self._producto
         '''
-        self.set_codigo(numero, pedido.get_codigo(), detalle.get_codigo())
-        self.set_cantidad(cantidad)
+        self.set_code(num, pedido.get_code(), detalle.get_code())
+        self.set_quantity(quantity)
         if isinstance(detalle, Receta):
             self.set_receta(detalle)
         else:
             self.set_producto(detalle)
         self.set_pedido(pedido)
-        DetallePedido.ListDetallePedidos[self.get_codigo()] = self
+        DetallePedido.ListDetallePedidos[self.get_code()] = self
 
     
-    def set_codigo(self, numero, codigo_pedido, codigo_detalle):
-        self._codigo = numero +'-'+ codigo_pedido +'-'+ codigo_detalle
+    def set_code(self, num, code_pedido, code_detalle):
+        self._code = num +'-'+ code_pedido +'-'+ code_detalle
 
     def get_codigo(self):
-        return self._codigo
+        return self._code
 
-    def set_cantidad(self, cantidad):
-        self._cantidad = cantidad
+    def set_quantity(self, quantity):
+        self._quantity = int(quantity)
 
-    def get_cantidad(self):
-        return self._cantidad
+    def get_quantity(self):
+        return self._quantity
     
     def set_pedido(self, pedido):
         self._pedido = pedido
@@ -59,25 +59,28 @@ class DetallePedido:
         return self._producto
     
     def __str__(self):
+        code = self.get_codigo()
+
         producto_o_receta = null
-        if  self.get_producto() is not None:
+        if  self.get_producto():
             producto_o_receta = self.get_producto()
         else:
             producto_o_receta = self.get_receta()
-
-        Str = Mensajes.men.get('formatoDetallePedido') % (
-            self.get_codigo(), producto_o_receta.get_nombre(), 
-            self.get_cantidad())
+        name = producto_o_receta.get_nombre()
+        quantity = self.get_quantity()
+        Str = Mensajes.men.get('detalle_pedido_pattern') % (
+            code, name, quantity) 
         return Str
     
     @staticmethod
-    def delete_detalle(codigo):
-        detalle = DetallePedido.ListDetallePedidos.pop(codigo)
-        detalle.get_pedido().get_detalle_pedidos().pop(codigo)
+    def delete_detalle(code):
+        detalle = DetallePedido.ListDetallePedidos.pop(code)
+        detalle.get_pedido().get_detalle_pedidos().pop(code)
         if detalle.get_producto() is not None:
-            detalle.get_producto().get_detalle_pedidos().pop(codigo)
+            detalle.get_producto().get_detalle_pedidos().pop(code)
         if detalle.get_receta() is not None:
-            detalle.get_receta().get_detalle_pedidos().pop(codigo)
+            detalle.get_receta().get_detalle_pedidos().pop(code)
+        #debo sumar lo que quite al crear
         
 
 

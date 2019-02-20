@@ -8,6 +8,8 @@ from calificacion import Calificacion
 from pedido import Pedido
 from receta import Receta
 from producto import Producto
+from detalleReceta import DetalleReceta
+from detallePedido import DetallePedido
 
 class CookAssist:
     #cambia si es chef o usuario
@@ -547,13 +549,14 @@ class CookAssist:
     @staticmethod
     def change_quantity():
         producto = CookAssist.search_producto()
-        operator = input(CookAssist.mensaje('operator', False))
-        if operator == '1':
-            operator = '+'
-        else:
-            operator = '-'
-        quantity = input(CookAssist.mensaje('quantity', False))
-        producto.change_quantity(quantity, operator)
+        if producto:
+            operator = input(CookAssist.mensaje('operator', False))
+            if operator == '1':
+                operator = '+'
+            else:
+                operator = '-'
+            quantity = input(CookAssist.mensaje('quantity', False))
+            producto.change_quantity(quantity, operator)
 
     
     #Receta
@@ -569,6 +572,10 @@ class CookAssist:
         }
         option = input(CookAssist.mensaje('menu_receta', False))
         return menu.get(option)
+
+    @staticmethod
+    def see_receta():
+        print(Receta.see_receta())
 
     @staticmethod
     def search_receta():
@@ -587,13 +594,18 @@ class CookAssist:
             name = input(CookAssist.mensaje('name', False))
             receta = Receta.get_producto_by_name(name)
             if len(receta) != 0:
-                CookAssist.mensaje('search_receta_header')
+                Str = CookAssist.mensaje('search_receta_header', False)
                 for i in range(len(receta)):
                     num = str(i + 1)
-                    print(num +' '+ receta[i].get_code().zfill(6) +' '+ receta[i].get_name())
+                    code = receta[i].get_code().zfill(6)
+                    name = receta[i].get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, code, name)
+                print(Str)
                 option = int(input(CookAssist.mensaje('option', False)))
-                print(receta[(option-1)])
-                return receta[(option-1)]
+                receta = receta[(option-1)]
+                print(receta)
+                return receta
             else:
                 CookAssist.mensaje('not_match')
 
@@ -607,7 +619,7 @@ class CookAssist:
     @staticmethod
     def edit_receta():
         receta = CookAssist.search_receta()
-        if receta is not None:
+        if receta:
             option = input(CookAssist.mensaje('edit_receta', False))
             valor = None
             if option == '1':
@@ -618,12 +630,11 @@ class CookAssist:
                 self.set_time(time)
             elif option == '3':
                 detalle_receta = CookAssist.add_detalle_receta()
-                for detalle in detalle_receta:
-                    DetalleReceta(detalle.get('quantity'), detalle.get('producto'), self)
+                receta.add_more_detalle_receta(detalle_receta)
             elif option == '4':
                 code = input(CookAssist.mensaje('code', False))
                 quantity = input(CookAssist.mensaje('quantity', False))
-                detalle = self.get_detalle_pedidos.get(code)
+                detalle = self.get_detalle_recetas.get(code)
                 detalle.set_quantity(quantity)
             elif option == '5':
                 code = input(CookAssist.mensaje('code', False))
@@ -636,39 +647,45 @@ class CookAssist:
         while option != '4':
             if option == '1':
                 producto = CookAssist.search_producto()
-                if producto is not None:
+                if producto:
                     quantity = input(CookAssist.mensaje('quantity', False))
                     detalle.append({'quantity' : quantity, 'producto' : producto})
             elif option == '2':
-                CookAssist.mensaje('detalle_receta_header', False)
+                Str = CookAssist.mensaje('detalle_receta_header', False)
                 for i in range(len(detalle)):
                     num = str(i + 1)
-                    print(num +' '+ detalle[i].get('quantity').zfill(7) 
-                            +' '+ detalle[i].get('producto').get_name())
+                    quantity = str(detalle[i].get('quantity')).zfill(7) 
+                    name = detalle[i].get('producto').get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, quantity, name)
+                print(Str)
                 option_detalle = int(input(CookAssist.mensaje('option', False)))
                 quantity = input(CookAssist.mensaje('quantity', False))
                 detalle[option_detalle-1]['quantity'] = quantity
             elif option == '3':
+                Str = CookAssist.mensaje('detalle_receta_header', False)
                 for i in range(len(detalle)):
                     num = str(i + 1)
-                    print(num +' '+ detalle[i].get('quantity').zfill(7) 
-                            +' '+ detalle[i].get('producto').get_name())
+                    quantity = str(detalle[i].get('quantity')).zfill(7) 
+                    name = detalle[i].get('producto').get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, quantity, name)
+                print(Str)
                 pos_detalle = int(input(CookAssist.mensaje('option', False)))
                 detalle.pop(pos_detalle-1)
             
             option = input(CookAssist.mensaje('new_detalle_receta', False))
         return detalle
 
-    #menu
     @staticmethod
     def receta_status_menu():
-        producto = CookAssist.search_producto()
-        if producto:
+        receta = CookAssist.search_receta()
+        if receta:
             status = True
             option = input(CookAssist.mensaje('status_menu', False))
             if option == '2':
                 status = False
-            producto.set_status_menu(status)
+            receta.set_status_menu(status)
 
     @staticmethod
     def best_recetas():
@@ -680,110 +697,181 @@ class CookAssist:
         menu = {}
         option = None
         if CookAssist.chef:
-            menu_pedido = {
-                '1': CookAssist.search_take_pedidos,
+            menu = {
+                '1': CookAssist.see_pedido,
                 '2': CookAssist.search_pedido,
                 '3': CookAssist.edit_pedido,
                 '4': CookAssist.delete_pedido,
-                '5': CookAssist.take_pedido
+                '5': CookAssist.see_pending_pedido,
+                '6': CookAssist.take_pedido,
+                '7': CookAssist.see_take_pedido,
+                '8': CookAssist.ready_pedido
             }
             option = input(CookAssist.mensaje('menu_pedido_chef', False))
         elif CookAssist.user.get_admin():
             menu = {
-                '1': CookAssist.search_my_pedido,
-                '2': CookAssist.search_pedido,
-                '3': CookAssist.new_pedido,
-                '4': CookAssist.edit_pedido,
-                '5': CookAssist.delete_pedido,
-                '6': CookAssist.generate_a_summary_pedido
+                '1': CookAssist.see_pedido,
+                '2': CookAssist.see_my_pedido,
+                '3': CookAssist.search_pedido,
+                '4': CookAssist.new_pedido,
+                '5': CookAssist.edit_pedido,
+                '6': CookAssist.delete_pedido,
+                '7': CookAssist.see_pending_pedido,
+                '8': CookAssist.generate_a_summary_pedido
             }
             option = input(CookAssist.mensaje('menu_pedido_admin', False))
         else:
             menu = {
-                '1': CookAssist.search_my_pedido,
+                '1': CookAssist.see_my_pedido,
                 '2': CookAssist.new_pedido
             }
             option = input(CookAssist.mensaje('menu_pedido_user', False))
         return menu.get(option)
-        
+    
     @staticmethod
-    def ver_pedido():
-        CookAssist.mensaje('ver_pedido')
-        opcion = input(CookAssist.mensaje('opcion', False))
-        codigo = input(CookAssist.mensaje('codigo', False))
-        pedido = Pedido.get_pedido_by_codigo(codigo)
-        if pedido is not None:
-            print(pedido)
-            return pedido
-        else:
-            CookAssist.mensaje('codeNotFound')
-            return None
+    def see_pedido():
+        print(Pedido.see_pedido())
 
     @staticmethod
-    def crear_pedido():
-        usuario = CookAssist.usuario
-        detalle = CookAssist.agregar_detalle_pedido()
-        descripcion = input(CookAssist.mensaje('descripcion', False))
-        Pedido(usuario, detalle, descripcion)
+    def search_pedido():
+        option = input(CookAssist.mensaje('search_pedido', False))
+        if option == '1':
+            code = input(CookAssist.mensaje('code', False))
+            pedido = Pedido.get_pedido_by_code(code)
+            if pedido is not None:
+                print(pedido)
+                return pedido
+            else:
+                CookAssist.mensaje('code_not_found')
+                return None
+            
+        elif option == '2':
+            date = input(CookAssist.mensaje('date', False))
+            pedido = Pedido.get_pedido_by_date(date)
+            if len(pedido) != 0:
+                Str = CookAssist.mensaje('search_pedido_header', False)
+                for i in range(len(pedido)):
+                    num = str(i + 1)
+                    code = pedido[i].get_code().zfill(6)
+                    date = pedido[i].get_date()
+                    user = pedido[i].get_usuario().get_name()
+                    Str += CookAssist.mensaje('format_4_str', False) % (
+                        num, code, date, user)
+                print(Str)
+                option = int(input(CookAssist.mensaje('option', False)))
+                pedido = pedido[(option-1)]
+                print(pedido)
+                return pedido
+            else:
+                CookAssist.mensaje('not_match')
 
     @staticmethod
-    def editar_pedido():
-        pedido = CookAssist.ver_pedido()
-        if receta is not None:
-            CookAssist.mensaje('editar_pedido')
-            opcion = input(CookAssist.mensaje('opcion', False))
-            valor = None
-            if opcion == '1':
-                valor = input(CookAssist.mensaje('nombre', False))
-            elif opcion == '2':
-                valor = input(CookAssist.mensaje('tiempo', False))
-            elif opcion == '3':
-                valor = CookAssist.agregar_detalle_receta()
-            elif opcion == '4':
-                codigo = input(CookAssist.mensaje('codigo', False))
-                cantidad = input(CookAssist.mensaje('cantidad', False))
-                valor = {'codigo' : codigo, 'cantidad' : cantidad}
-            elif opcion == '5':
-                valor = input(CookAssist.mensaje('codigo', False))
-            if opcion != '6':
-                receta.editar_receta(opcion, valor)
+    def new_pedido():
+        usuario = CookAssist.user
+        detalle = CookAssist.add_detalle_pedido()
+        description = input(CookAssist.mensaje('description', False))
+        Pedido(usuario, detalle, description)
 
     @staticmethod
-    def agregar_detalle_pedido():
-        CookAssist.mensaje('detallePedido')
-        opcion = input(CookAssist.mensaje('opcion', False))
+    def edit_pedido():
+        pedido = CookAssist.search_pedido()
+        if pedido:
+            option = input(CookAssist.mensaje('edit_pedido', False))
+            if option == '1':
+                description = input(CookAssist.mensaje('description', False))
+                Pedido.set_description(description)
+            elif option == '2':
+                detalle_pedido = CookAssist.add_detalle_pedido()
+                pedido.add_more_detalle_pedido(detalle_pedido)
+            elif option == '3':
+                code = input(CookAssist.mensaje('code', False))
+                quantity = input(CookAssist.mensaje('quantity', False))
+                detalle = self.get_detalle_pedidos.get(code)
+                detalle.set_quantity(quantity)
+                #revisar disponibilidad
+            elif option == '4':
+                code = input(CookAssist.mensaje('code', False))
+                DetallePedido.delete_detalle(code)
+
+    @staticmethod
+    def add_detalle_pedido():
+        option = input(CookAssist.mensaje('new_detalle_pedido', False))
         detalle = []
-        while opcion != '5':
-            if opcion == '1':
+        while option != '5':
+            if option == '1':
                 producto = CookAssist.ver_producto()
-                if producto is not None:
-                    cantidad = input(CookAssist.mensaje('cantidad', False))
-                    detalle.append({'cantidad' : cantidad, 'detalle' : producto})
-            elif opcion == '2':
+                if producto:
+                    quantity = input(CookAssist.mensaje('quantity', False))
+                    check = producto.check_producto(quantity)
+                    if check is True:
+                        detalle.append({'quantity' : quantity, 'detalle' : producto})
+                    else:
+                        print(check)
+            elif option == '2':
                 receta = CookAssist.ver_receta()
-                if receta is not None:
-                    cantidad = input(CookAssist.mensaje('cantidad', False))
-                    detalle.append({'cantidad' : cantidad, 'detalle' : receta})
-            elif opcion == '3':
-                CookAssist.mensaje('cabeceraDetalle', False)
+                if receta:
+                    quantity = input(CookAssist.mensaje('quantity', False))
+                    check = receta.check_receta(quantity)
+                    if check is True:
+                        detalle.append({'quantity' : quantity, 'detalle' : receta})
+                    else:
+                        print(check)
+            elif option == '3':
+                Str = CookAssist.mensaje('detalle_pedido_header', False)
                 for i in range(len(detalle)):
-                    numero = str(i + 1)
-                    print(numero +' '+ detalle[i].get('cantidad').zfill(7) 
-                            +' '+ detalle[i].get('detalle').get_nombre())
-                opcionDetalle = int(input(CookAssist.mensaje('opcion', False)))
-                cantidad = input(CookAssist.mensaje('cantidad', False))
-                detalle[opcionDetalle-1]['cantidad'] = cantidad
-            elif opcion == '4':
+                    num = str(i + 1)
+                    quantity = str(detalle[i].get('quantity')).zfill(7) 
+                    name = detalle[i].get('producto').get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, quantity, name)
+                print(Str)
+                opcion_detalle = int(input(CookAssist.mensaje('option', False)))
+                quantity = input(CookAssist.mensaje('quantity', False))
+                detalle[opcion_detalle-1]['quantity'] = quantity
+            elif option == '4':
+                Str = CookAssist.mensaje('detalle_pedido_header', False)
                 for i in range(len(detalle)):
-                    numero = str(i + 1)
-                    print(numero +' '+ detalle[i].get('cantidad').zfill(7) 
-                            +' '+ detalle[i].get('detalle').get_nombre())
-                posicionDetalle = int(input(CookAssist.mensaje('opcion', False)))
+                    num = str(i + 1)
+                    quantity = str(detalle[i].get('quantity')).zfill(7) 
+                    name = detalle[i].get('producto').get_name()
+                    Str += CookAssist.mensaje('format_3_str', False) % (
+                        num, quantity, name)
+                print(Str)
+                posicionDetalle = int(input(CookAssist.mensaje('option', False)))
                 detalle.pop(posicionDetalle-1)
             
-            CookAssist.mensaje('detallePedido')
-            opcion = input(CookAssist.mensaje('opcion', False))
+            option = input(CookAssist.mensaje('new_detalle_pedido', False))
         return detalle
+
+    @staticmethod
+    def delete_pedido():
+        pass
+
+    
+
+    @staticmethod
+    def see_pending_pedido():
+        pass
+    
+    @staticmethod
+    def take_pedido():
+        pass
+    @staticmethod
+    def see_take_pedido():
+        pass
+
+    @staticmethod
+    def ready_pedido():
+        pass
+
+    @staticmethod
+    def generate_a_summary_pedido():
+        pass
+
+    @staticmethod
+    def see_my_pedido():
+        pass
+
 
     @staticmethod
     def menu_day():

@@ -169,31 +169,6 @@ class ES:
     6. Ver mejores recetas
     7. <-Atras
     Seleccione una opción: ''',
-    'menu_pedio_chef' : '''
-    Menú Pedido
-    1. ver pedidos a mi cargo
-    2. Buscar pedidos
-    3. Editar pedido
-    4. Eliminar Pedido
-    5. Tomar pedido
-    6. <-Atras
-    Seleccione una opción: ''',
-    'menu_pedio_admin' : '''
-    Menú Pedido
-    1. ver mis pedidos
-    2. Buscar pedidos
-    3. Nuevo Pedido
-    4. Editar pedido
-    5. Eliminar Pedido
-    6. Tomar pedido
-    7. <-Atras
-    Seleccione una opción: ''',
-    'menu_pedio_user' : '''
-    Menú Pedido
-    1. ver mis pedidos
-    2. Nuevo Pedido
-    3. <-Atras
-    Seleccione una opción: ''',
     'user_duplicated' : 'Usuario existente',
     'chef_duplicated' : 'Chef existente',
     'edit_my_user' : '''
@@ -285,7 +260,8 @@ class ES:
     Tiempo: %d min
     Estado: %s
     ''',
-    'detalle_receta_pattern' : 'Código: %s Nombre: %s Cantidad: %d %s',
+    'detalle_receta_pattern_header' : 'Código Nombre         Cantidad \n',
+    'detalle_receta_pattern' : '%s %s %d %s \n',
     'search_receta' : '''
     Buscar receta por:
     1. Código
@@ -293,7 +269,7 @@ class ES:
     3. <-Atras
     Seleccione una opción: ''',
     'search_receta_header' : '# codigo nombre', 
-    'time' : 'Ingrese el tiempo de preparacion: ',
+    'time' : 'Ingrese el tiempo de preparacion en minutos: ',
     'new_detalle_receta' :'''
     1. Agregar Ingredientes
     2. Editar cantidades
@@ -312,7 +288,7 @@ class ES:
     Seleccione una opción: ''',
     'str_see_producto_header' : 'Codigo Nombre       Estado  Menú\n',
     'str_see_producto' : '%s %s %s %s \n',
-    'format_3_str' : '%s %s %s \n'
+    'format_3_str' : '%s %s %s \n',
     'status_menu' : '''
     Activar/Desactivar en menú:
     1. Activar
@@ -320,9 +296,79 @@ class ES:
     Seleccione una opción: ''',
     'str_see_low_producto_header' : 'Codigo Nombre       cantidad \n',
     'str_see_low_producto' : '%s %s %d %s \n',
-    'str_see_receta_header' : 'Codigo Nombre       Estado  Menú\n',
-    'str_see_receta' : '%s %s %s %s \n',
-
+    'str_see_receta_header' : 'Codigo Nombre       Tiempo  Menú \n',
+    'str_see_receta' : '%s %s %d %s \n',
+    'str_see_pedido_header' : 'Codigo Fecha   Usuario     Chef \n',
+    'str_see_pedido' : '%s %s %s %s \n',
+    'menu_pedido_chef' : '''
+    Menú Pedido
+    1. Ver pedidos
+    2. Buscar pedido
+    3. Editar pedido
+    4. Eliminar pedido
+    5. Ver pedidos pendientes
+    6. Tomar pedido
+    7. Ver pedidos tomados y sin completar
+    8. Completar pedido
+    9. <-Atras
+    Seleccione una opción: ''',
+    'menu_pedido_admin' : '''
+    Menú Pedido
+    1. Ver pedidos
+    2. ver mis pedidos
+    3. Nuevo Pedido
+    4. Buscar pedido
+    5. Editar pedido
+    6. Eliminar pedido
+    7. Ver pedidos pendientes
+    8. Generar 
+    8. <-Atras
+    Seleccione una opción: ''',
+    'menu_pedido_user' : '''
+    Menú Pedido
+    1. ver mis pedidos
+    2. Nuevo Pedido
+    3. <-Atras
+    Seleccione una opción: ''',
+    'search_pedido' : '''
+    Buscar pedido por:
+    1. Código
+    2. Fecha
+    3. <-Atras
+    Seleccione una opción: ''',
+    'date' : 'Ingrese la fecha(dd/mm/yyyy): ',
+    'str_see_pedido_header' : 'Codigo Fecha   Usuario     Chef \n',
+    'str_see_pedido' : '%s %s %s %s \n',
+    'search_pedido_header' : '# Codigo Fecha   Usuario \n',
+    'format_4_str' : '%s %s %s %s \n',
+    'detalle_pedido_pattern_header' : 'Código    Nombre         Cantidad \n',
+    'detalle_pedido_pattern' : '%s %s %d %s \n',
+    'pedido_pattern' : '''
+    Código: %s
+    Fecha: %s
+    Usuario: %s
+    Chef: %s
+    ''',
+    'only_unity' : 'Solo puede pedir %d',
+    'sorry_receta' : 'Disculpe ya no puede pedir esta receta',
+    'description' : 'Algun comentario o descripcion adicional: \n',    
+    'sorry_producto' : 'Disculpe ya no puede pedir esta producto',
+    'new_detalle_pedido' :'''
+    1. Agregar producto
+    2. Agregar receta
+    3. Editar cantidades
+    4. Eliminar del pedido
+    5. Finalizar
+    Seleccione una opción: ''',
+    'detalle_pedido_header' : '# cantidad nombre',
+    'edit_pedido' : '''
+    Modificar:
+    1. Descripcion
+    2. Agregar producto o receta
+    3. Modificar cantidad
+    4. Eliminar receta o producto
+    5. <-Atras
+    Seleccione una opción: ''',
 
 
 
@@ -334,46 +380,5 @@ class ES:
     4. Eliminar calificación
     5. <-Atras
     ''',
-    
-    
-    
-    
-    
-    
-    
-    #Pedido
-    'editar_pedido' : '''
-    Escoja una opcion a modificar:
-    1. Descripcion
-    2. Agregar Ingrediente
-    3. Cambiar Contraseña
-    4. <-Atras
-    ''',
-    'detallePedido' : '''
-    1. Agregar producto
-    2. Agregar receta
-    3. Editar cantidades
-    4. Eliminar del pedido
-    5. Finalizar
-    ''',
-    'descripcion' : 'Ingrese la descripción',
-    'ver_pedido' : '''
-    1. Buscar por código
-    2. <-Atras
-    ''',
-    'formatoPedido' : '''
-    Código: %s
-    fecha: %s
-    descripcion: %s
-    usuario: %s
-    chef: %s
-    ''',
-    'yesNo' : '''
-    Esta seguro?
-    1. Si
-    2. No
-    ''',
-    
-    
     
     }

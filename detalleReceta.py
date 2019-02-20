@@ -55,8 +55,8 @@ class DetalleReceta:
         return Str
 
     @staticmethod
-    def delete_detalle(codigo):
-        detalle = DetalleReceta.ListDetalleRecetas.pop(codigo)
-        detalle.get_receta().get_detalle_recetas().pop(codigo)
-        detalle.get_producto().get_detalle_recetas().pop(codigo)
+    def delete_detalle(code):
+        detalle = DetalleReceta.ListDetalleRecetas.pop(code)
+        detalle.get_receta().get_detalle_recetas().pop(code)
+        detalle.get_producto().get_detalle_recetas().pop(code)
 
