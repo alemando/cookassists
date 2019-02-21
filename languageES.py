@@ -223,31 +223,24 @@ class ES:
     2. ml
     3. gr
     Seleccione una opción: ''',
-    'unlimited' : '''
-    Ilimitado?
-    1. Si
-    2. No
-    Seleccione una opción: ''',
     'producto_pattern' : '''
     Código: %s
     Nombre: %s
     Cantidad: %s %s
     Estado: %s
-    Menú:
+    Menú: %s
     ''',
     'producto_pattern_user' : '''
     Código: %s
     Nombre: %s
     ''',
-    'text_unlimited': 'Ilimitado',
-    'search_producto_header' : '# codigo nombre', 
+    'search_producto_header' : '# codigo nombre \n', 
     'edit_producto' : '''
     Modificar
     1. Nombre
     2. cantidad
     3. medicion
-    4. ilimitado
-    5. <-Atras
+    4. <-Atras
     Seleccione una opción: ''',
     'operator' :'''
     Desea:
@@ -268,7 +261,7 @@ class ES:
     2. Nombre
     3. <-Atras
     Seleccione una opción: ''',
-    'search_receta_header' : '# codigo nombre', 
+    'search_receta_header' : '# codigo nombre \n', 
     'time' : 'Ingrese el tiempo de preparacion en minutos: ',
     'new_detalle_receta' :'''
     1. Agregar Ingredientes
@@ -276,7 +269,7 @@ class ES:
     3. Eliminar Ingredientes
     4. Finalizar
     Seleccione una opción: ''',
-    'detalle_receta_header' : '# cantidad nombre',
+    'detalle_receta_header' : '# cantidad nombre \n',
     'edit_receta' : '''
     Modificar:
     1. Nombre
@@ -288,6 +281,8 @@ class ES:
     Seleccione una opción: ''',
     'str_see_producto_header' : 'Codigo Nombre       Estado  Menú\n',
     'str_see_producto' : '%s %s %s %s \n',
+    'str_menu_producto_header' : 'Codigo Nombre \n',
+    'str_menu_producto' : '%s %s \n',
     'format_3_str' : '%s %s %s \n',
     'status_menu' : '''
     Activar/Desactivar en menú:
@@ -298,8 +293,10 @@ class ES:
     'str_see_low_producto' : '%s %s %d %s \n',
     'str_see_receta_header' : 'Codigo Nombre       Tiempo  Menú \n',
     'str_see_receta' : '%s %s %d %s \n',
-    'str_see_pedido_header' : 'Codigo Fecha   Usuario     Chef \n',
-    'str_see_pedido' : '%s %s %s %s \n',
+    'str_menu_receta_header' : 'Codigo Nombre       Tiempo \n',
+    'str_menu_receta' : '%s %s %d \n',
+    'str_see_pedido_header' : 'Codigo Fecha  Entregado  Usuario     Chef    \n',
+    'str_see_pedido' : '%s %s %s %s %s \n',
     'menu_pedido_chef' : '''
     Menú Pedido
     1. Ver pedidos
@@ -316,13 +313,13 @@ class ES:
     Menú Pedido
     1. Ver pedidos
     2. ver mis pedidos
-    3. Nuevo Pedido
-    4. Buscar pedido
+    3. Buscar pedido
+    4. Nuevo Pedido
     5. Editar pedido
     6. Eliminar pedido
     7. Ver pedidos pendientes
-    8. Generar 
-    8. <-Atras
+    8. Generar reporte
+    9. <-Atras
     Seleccione una opción: ''',
     'menu_pedido_user' : '''
     Menú Pedido
@@ -337,8 +334,6 @@ class ES:
     3. <-Atras
     Seleccione una opción: ''',
     'date' : 'Ingrese la fecha(dd/mm/yyyy): ',
-    'str_see_pedido_header' : 'Codigo Fecha   Usuario     Chef \n',
-    'str_see_pedido' : '%s %s %s %s \n',
     'search_pedido_header' : '# Codigo Fecha   Usuario \n',
     'format_4_str' : '%s %s %s %s \n',
     'detalle_pedido_pattern_header' : 'Código    Nombre         Cantidad \n',
@@ -348,6 +343,7 @@ class ES:
     Fecha: %s
     Usuario: %s
     Chef: %s
+    Entregado: %s
     ''',
     'only_unity' : 'Solo puede pedir %d',
     'sorry_receta' : 'Disculpe ya no puede pedir esta receta',
@@ -360,7 +356,7 @@ class ES:
     4. Eliminar del pedido
     5. Finalizar
     Seleccione una opción: ''',
-    'detalle_pedido_header' : '# cantidad nombre',
+    'detalle_pedido_header' : '# cantidad nombre \n',
     'edit_pedido' : '''
     Modificar:
     1. Descripcion
@@ -369,16 +365,61 @@ class ES:
     4. Eliminar receta o producto
     5. <-Atras
     Seleccione una opción: ''',
-
-
-
-    'menu_calificacion' : '''
-    Menú Calificaciónes
-    1. Ver calificación
-    2. Agregar calificación
-    3. Modificar calificación
-    4. Eliminar calificación
+    'menu_day_chef' : '''
+    Menú del día
+    1. Ver mejores recetas
+    2. Ver menu
+    3. Activar/Desactivar producto en menú
+    4. Activar/Desactivar receta en menú
     5. <-Atras
-    ''',
+    Seleccione una opción: ''',
+    'menu_day_admin' : '''
+    Menú del día
+    1. Ver mejores recetas
+    2. Ver menu
+    3. Activar/Desactivar producto en menú
+    4. Activar/Desactivar receta en menú
+    5. <-Atras
+    Seleccione una opción: ''',
+    'menu_day_user' : '''
+    Menú del día
+    1. Ver mejores recetas
+    2. Ver menu
+    3. <-Atras
+    Seleccione una opción: ''',
+    'menu_day_select' : '''
+    1. Ver menu de productos
+    2. Ver menu de recetas
+    3. <-Atras
+    Seleccione una opción: ''',
+    'menu_calificacion_admin' : '''
+    Menú Calificaciónes
+    1. Ver calificaciones
+    2. Buscar calificación
+    3. Eliminar calificación
+    4. Ver mejores recetas
+    5. Ver mejores chef
+    6. Calificar un pedido
+    7. Editar mis calificaciones
+    8. Eliminar mis calificaciones
+    9. <-Atras
+    Seleccione una opción: ''',
+    'menu_calificacion_chef' : '''
+    Menú Calificaciónes
+    1. Ver calificaciones
+    2. Ver mejores recetas
+    3. Ver mejores chef
+    4. <-Atras
+    Seleccione una opción: ''',
+    'menu_calificacion_user' : '''
+    Menú Calificaciónes
+    1. Ver calificaciones
+    2. Ver mejores recetas
+    3. Ver mejores chef
+    4. Calificar un pedido
+    5. Editar mis calificaciones
+    6. Eliminar mis calificaciones
+    7. <-Atras
+    Seleccione una opción: '''
     
     }

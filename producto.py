@@ -6,32 +6,35 @@ class Producto:
     auto_increment_code = 0
 
     def __init__(
-        self, name, quantity,
-        measurement, unlimited):
+        self, name, quantity, measurement, 
+        code = None, status = True, status_menu = False):
         '''ATTRIBUTES
             self._code
             self._name
             self._quantity
             self._measurement
-            self._unlimited
+
             self._status
             selg._status_menu
         '''
         self._ListDetallePedidos = {}
         self._ListDetalleRecetas = {}
-        self.set_code()
+        self.set_code(code)
         self.set_name(name)
         self.set_quantity(quantity)
         self.set_measurement(measurement)
-        self.set_unlimited(unlimited)
-        self.set_status(True)
-        self.set_status_menu(False)
+        self.set_status(status)
+        self.set_status_menu(status_menu)
         Producto.ListProductos[self.get_code()] = self
 
-    #codigo al ya estar creado
-    def set_code(self):
-        Producto.auto_increment_code += 1
-        code = Producto.auto_increment_code
+    def set_code(self, code):
+        aux_code = Producto.auto_increment_code
+        if code:
+            if code > aux_code:
+                Producto.auto_increment_code = code
+        else:
+            Producto.auto_increment_code += 1
+            code = Producto.auto_increment_code
         self._code = str(code)
 
     def get_code(self):
@@ -58,16 +61,10 @@ class Producto:
         else:
             return self._measurement
 
-    def set_unlimited(self, unlimited):
-        self._unlimited = unlimited
-
-    def get_unlimited(self):
-        return self._unlimited
-
     def set_status(self, status):
         self._status = status
         if not status:
-            for detalle in self.get_detalle_recetas.values():
+            for detalle in self.get_detalle_recetas().values():
                 receta = detalle.get_receta()
                 receta.set_status_menu(False)
             
@@ -114,14 +111,12 @@ class Producto:
             Producto.menu.pop(self.get_code())
             return EN.men.get('sorry_producto')
         else:
-            return EN.men.get('only_receta') % (num_times)
+            return EN.men.get('only_unity') % (num_times)
 
     def __str__(self):
         code = self.get_code() 
         name = self.get_name()
         quantity = str(self.get_quantity())
-        if self.get_unlimited:
-            quantity = EN.men.get('text_unlimited')
         measurement = self.get_measurement()
         status = self.get_status()
         if status:
@@ -139,13 +134,6 @@ class Producto:
             measurement, status, status_menu)
         return Str
     
-    def str_user(self):
-        code = self.get_code() 
-        name = self.get_name()
-        Str = EN.men.get('producto_pattern_user') % (
-            code, name)
-        return Str
-
     @staticmethod
     def see_low_producto():
         Str = EN.men.get('str_see_low_producto_header')
@@ -183,6 +171,17 @@ class Producto:
                     code, name, status, status_menu)
         return Str
 
+    @staticmethod
+    def see_menu():
+        Str = EN.men.get('str_menu_producto_header')
+        for producto in Producto.menu.values():
+            code = producto.get_code().zfill(6)
+            name = producto.get_name()
+            Str += EN.men.get('str_menu_producto') % (
+                    code, name)
+        return Str
+
+
     '''Atributo admin para listar los productos 
         que estan desactivados
     '''
@@ -194,6 +193,18 @@ class Producto:
     def get_producto_by_name(name):
         ListCoincidencias = []
         for producto in Producto.ListProductos.values():
+            if producto.get_name().lower().find(name.lower()) != -1:
+                ListCoincidencias.append(producto)
+        return ListCoincidencias
+
+    @staticmethod
+    def get_producto_by_code_menu(code):
+        return Producto.menu.get(code)
+
+    @staticmethod
+    def get_producto_by_name_menu(name):
+        ListCoincidencias = []
+        for producto in Producto.menu.values():
             if producto.get_name().lower().find(name.lower()) != -1:
                 ListCoincidencias.append(producto)
         return ListCoincidencias

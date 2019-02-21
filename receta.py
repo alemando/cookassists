@@ -8,7 +8,7 @@ class Receta:
 
     def __init__(
         self, name, 
-        time, detalle_receta):
+        time, detalle_receta, code = None, status_menu = False):
         '''ATTRIBUTES
             self._code
             self._name
@@ -18,18 +18,22 @@ class Receta:
         self._ListDetalleRecetas = {}
         self._ListDetallePedidos = {}
         self._ListCalificaciones = {}
-        self.set_code()
+        self.set_code(code)
         self.set_name(name)
         self.set_time(time)
-        self.set_status_menu(False)
+        self.set_status_menu(status_menu)
         for detalle in detalle_receta:
             DetalleReceta(detalle.get('quantity'), detalle.get('producto'), self)
         Receta.ListRecetas[self.get_code()] = self
 
-    #receta codigo ya creado
-    def set_code(self):
-        Receta.auto_increment_code += 1
-        codigo = Receta.auto_increment_code
+    def set_code(self, code):
+        aux_code = Receta.auto_increment_code
+        if code:
+            if code > aux_code:
+                Receta.auto_increment_code = code
+        else:
+            Receta.auto_increment_code += 1
+            code = Receta.auto_increment_code
         self._code = str(code)
 
     def get_code(self):
@@ -47,7 +51,7 @@ class Receta:
     def get_time(self):
         return self._time
 
-    def set__status_menu(self, status):
+    def set_status_menu(self, status):
         if status:
             Receta.menu[self.get_code()] = self
         else:
@@ -75,6 +79,12 @@ class Receta:
     def get_calificaciones(self):
         return self._ListCalificaciones
     
+    def change_quantity_to_producto(self, quantity, operator):
+        for detalle in self.get_detalle_recetas():
+            producto = detalle.get_producto()
+            quantity_producto = detalle.get_quantity()*quantity
+            producto.change_quantity(quantity_producto, operator)
+
     def check_receta(self, quantity):
         num_times = quantity
         for detalle in self.get_detalle_recetas().values():
@@ -96,7 +106,7 @@ class Receta:
         code = self.get_code()
         name = self.get_name()
         time = self.get_time()
-        status = self.get_status()
+        status = self.get_status_menu()
         Str = EN.men.get('receta_pattern') % (
             code, name,
             time, status)
@@ -121,6 +131,16 @@ class Receta:
                     code, name, time, status_menu)
         return Str
 
+    @staticmethod
+    def see_menu():
+        Str = EN.men.get('str_menu_receta_header')
+        for receta in Receta.menu.values():
+            code = receta.get_code().zfill(6)
+            name = receta.get_name()
+            time = receta.get_time()
+            Str += EN.men.get('str_menu_receta') % (
+                    code, name, time)
+        return Str
 
     @staticmethod
     def get_receta_by_code(code):
@@ -130,6 +150,18 @@ class Receta:
     def get_receta_by_name(name):
         ListCoincidencias = []
         for receta in Receta.ListRecetas.values():
+            if receta.get_name().lower().find(name.lower()) != -1:
+                ListCoincidencias.append(receta)
+        return ListCoincidencias
+
+    @staticmethod
+    def get_receta_by_code_menu(code):
+        return Receta.menu.get(code)
+    
+    @staticmethod
+    def get_receta_by_name_menu(name):
+        ListCoincidencias = []
+        for receta in Receta.menu.values():
             if receta.get_name().lower().find(name.lower()) != -1:
                 ListCoincidencias.append(receta)
         return ListCoincidencias

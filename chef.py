@@ -6,7 +6,7 @@ class Chef(Usuario):
 
     def __init__(
             self, admin, email, 
-            name, password, born_date):
+            name, password, born_date, status = True, status_chef = True):
         '''ATTRIBUTES
             self._admin
             self._email
@@ -18,10 +18,10 @@ class Chef(Usuario):
         '''
         super().__init__(
                     admin, email, name,
-                    password, born_date)
+                    password, born_date, status)
         self._ListCalificacionesChef = {}
         self._ListPedidosChef = {}
-        self.set_status_chef(True)
+        self.set_status_chef(status_chef)
         Chef.ListChefs[email] = self
     
     def set_status_chef(self, status):

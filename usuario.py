@@ -6,7 +6,7 @@ class Usuario:
 
     def __init__(
             self, admin, email, 
-            name, password, born_date):
+            name, password, born_date, status = True):
         '''ATTRIBUTES
             self._admin
             self._email
@@ -22,7 +22,7 @@ class Usuario:
         self.set_name(name)
         self.set_password(password)
         self.set_born_date(born_date)
-        self.set_status(True)
+        self.set_status(status)
         Usuario.ListUsuarios[email] = self
 
     def set_admin(self, admin):

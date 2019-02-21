@@ -18,17 +18,19 @@ class DetallePedido:
         self.set_code(num, pedido.get_code(), detalle.get_code())
         self.set_quantity(quantity)
         if isinstance(detalle, Receta):
+            detalle.change_quantity_to_producto(quantity,'-')
             self.set_receta(detalle)
         else:
+            detalle.change_quantity(quantity,'-')
             self.set_producto(detalle)
         self.set_pedido(pedido)
         DetallePedido.ListDetallePedidos[self.get_code()] = self
 
     
     def set_code(self, num, code_pedido, code_detalle):
-        self._code = num +'-'+ code_pedido +'-'+ code_detalle
+        self._code = str(num) +'-'+ code_pedido +'-'+ code_detalle
 
-    def get_codigo(self):
+    def get_code(self):
         return self._code
 
     def set_quantity(self, quantity):
@@ -53,6 +55,7 @@ class DetallePedido:
     
     def set_producto(self, producto):
         self._producto = producto
+        
         producto.set_detalle_pedidos(self)
 
     def get_producto(self):

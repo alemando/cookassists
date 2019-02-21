@@ -13,7 +13,7 @@ class DetalleReceta:
             self._receta
         '''
         self.set_code(receta.get_code(), producto.get_code())
-        self.set_quantity(cantidad)
+        self.set_quantity(quantity)
         self.set_producto(producto)
         self.set_receta(receta)
         DetalleReceta.ListDetalleRecetas[self.get_code()] = self
