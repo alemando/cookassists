@@ -13,7 +13,6 @@ class Producto:
             self._name
             self._quantity
             self._measurement
-
             self._status
             selg._status_menu
         '''
@@ -64,9 +63,7 @@ class Producto:
     def set_status(self, status):
         self._status = status
         if not status:
-            for detalle in self.get_detalle_recetas().values():
-                receta = detalle.get_receta()
-                receta.set_status_menu(False)
+            self.set_status_menu(False)
             
     def get_status(self):
         return self._status

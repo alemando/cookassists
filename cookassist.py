@@ -646,7 +646,7 @@ class CookAssist:
             
         elif option == '2':
             name = input(CookAssist.mensaje('name', False))
-            receta = Receta.get_producto_by_name_menu(name)
+            receta = Receta.get_receta_by_name_menu(name)
             if len(receta) != 0:
                 Str = CookAssist.mensaje('search_receta_header', False)
                 for i in range(len(receta)):
@@ -789,7 +789,7 @@ class CookAssist:
         if option == '1':
             code = input(CookAssist.mensaje('code', False))
             pedido = Pedido.get_pedido_by_code(code)
-            if pedido is not None:
+            if pedido:
                 print(pedido)
                 return pedido
             else:
@@ -1037,6 +1037,7 @@ class CookAssist:
         EN.men = ES.spanish
         #Usuario admin, y primer usuario del sistema
         CookAssist.user = Chef(True, 'alemandoa@gmail.com', 'Alejandro Jiménez', '12345', '28/10/1999')
+        CookAssist.add_fictitious_data()
         while True:
 
             while CookAssist.user is None:

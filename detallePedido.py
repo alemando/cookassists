@@ -62,8 +62,7 @@ class DetallePedido:
         return self._producto
     
     def __str__(self):
-        code = self.get_codigo()
-
+        code = self.get_code()
         producto_o_receta = null
         if  self.get_producto():
             producto_o_receta = self.get_producto()

@@ -88,7 +88,7 @@ class Receta:
     def check_receta(self, quantity):
         num_times = quantity
         for detalle in self.get_detalle_recetas().values():
-            receta_times = detalle.check_quantity(detalle.get_quantity())
+            receta_times = detalle.get_producto().check_quantity(detalle.get_quantity())
             if receta_times < num_times:
                 num_times = receta_times
         if num_times >= quantity:
