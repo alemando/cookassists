@@ -458,4 +458,5 @@ class ES:
     2. Calificar pedido
     3. <-Atras
     Seleccione una opción: ''',
+    'average' : 'Puntaje: '
     }

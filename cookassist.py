@@ -1013,7 +1013,7 @@ class CookAssist:
         if option == '1':
             receta = CookAssist.search_receta_menu()
             if receta:
-                print(receta.see_calificacion())
+                print(Calificacion.see_average(receta))
             else:
                 CookAssist.mensaje('code_not_found')
                 

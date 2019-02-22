@@ -191,3 +191,15 @@ class Calificacion:
                 num = average
                 best = receta
         return best
+
+    @staticmethod
+    def see_average(receta):
+        code = receta.get_code()
+        name = receta.get_name()
+        time = receta.get_time()
+        status = receta.get_status_menu()
+        Str = EN.men.get('receta_pattern') % (
+            code, name,
+            time, status)
+        Str += EN.men.get('average') + str(Calificacion.get_average_rating(receta))
+        return Str

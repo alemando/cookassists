@@ -463,4 +463,5 @@ class EN:
     2. Rate order
     3. <-back
     Select an option: ''',
+    'average' : 'Rating: '
     }
