@@ -1092,8 +1092,7 @@ class CookAssist:
 
         EN.men = ES.spanish
         #Usuario admin, y primer usuario del sistema
-        CookAssist.user = Chef(True, 'alemandoa@gmail.com', 'Alejandro Jiménez', '12345', '28/10/1999')
-        CookAssist.add_fictitious_data()
+        Chef(True, 'alemandoa@gmail.com', 'Alejandro Jiménez', '12345', '28/10/1999')
         while True:
 
             while CookAssist.user is None:
