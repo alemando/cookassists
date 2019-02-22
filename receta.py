@@ -80,7 +80,7 @@ class Receta:
         return self._ListCalificaciones
     
     def change_quantity_to_producto(self, quantity, operator):
-        for detalle in self.get_detalle_recetas():
+        for detalle in self.get_detalle_recetas().values():
             producto = detalle.get_producto()
             quantity_producto = detalle.get_quantity()*quantity
             producto.change_quantity(quantity_producto, operator)
@@ -102,6 +102,27 @@ class Receta:
     def add_more_detalle_recetas(self, detalle_receta):
         for detalle in detalle_receta:
             DetalleReceta(detalle.get('quantity'), detalle.get('producto'), self)
+    
+    def see_calificacion(self):
+        code = self.get_code()
+        name = self.get_name()
+        time = self.get_time()
+        status = self.get_status_menu()
+        Str = EN.men.get('receta_pattern') % (
+            code, name,
+            time, status)
+        for calificacion in self.get_calificaciones().values():
+            Str+= calificacion.__str__()
+        return Str
+
+    def str_user(self):
+        code = self.get_code()
+        name = self.get_name()
+        Str = EN.men.get('receta_pattern_user') % (
+            code, name)
+        return Str
+
+
     def __str__(self):
         code = self.get_code()
         name = self.get_name()

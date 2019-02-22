@@ -244,8 +244,8 @@ class ES:
     Seleccione una opción: ''',
     'operator' :'''
     Desea:
-    +. Sumar
-    -. Restar
+    1. Sumar
+    2. Restar
     Seleccione una opción: ''',
     'receta_pattern' : '''
     Código: %s
@@ -294,36 +294,36 @@ class ES:
     'str_see_receta_header' : 'Codigo Nombre       Tiempo  Menú \n',
     'str_see_receta' : '%s %s %d %s \n',
     'str_menu_receta_header' : 'Codigo Nombre       Tiempo \n',
-    'str_menu_receta' : '%s %s %d \n',
+    'str_menu_receta' : '    %s %s %d \n',
     'str_see_pedido_header' : 'Codigo Fecha  Entregado  Usuario     Chef    \n',
     'str_see_pedido' : '%s %s %s %s %s \n',
+    'str_see_my_pedido_header' : 'Codigo Fecha  Entregado     Chef    \n',
+    'str_see_my_pedido' : '%s %s %s %s \n',
     'menu_pedido_chef' : '''
     Menú Pedido
     1. Ver pedidos
     2. Buscar pedido
     3. Editar pedido
-    4. Eliminar pedido
-    5. Ver pedidos pendientes
-    6. Tomar pedido
-    7. Ver pedidos tomados y sin completar
-    8. Completar pedido
-    9. <-Atras
+    4. Ver pedidos pendientes
+    5. Tomar pedido
+    6. Ver pedidos tomados y sin completar
+    7. Completar pedido
+    8. <-Atras
     Seleccione una opción: ''',
     'menu_pedido_admin' : '''
     Menú Pedido
     1. Ver pedidos
-    2. ver mis pedidos
+    2. Ver mis pedidos
     3. Buscar pedido
     4. Nuevo Pedido
     5. Editar pedido
-    6. Eliminar pedido
-    7. Ver pedidos pendientes
-    8. Generar reporte
-    9. <-Atras
+    6. Ver pedidos pendientes
+    7. Generar reporte
+    8. <-Atras
     Seleccione una opción: ''',
     'menu_pedido_user' : '''
     Menú Pedido
-    1. ver mis pedidos
+    1. Ver mis pedidos
     2. Nuevo Pedido
     3. <-Atras
     Seleccione una opción: ''',
@@ -337,7 +337,7 @@ class ES:
     'search_pedido_header' : '# Codigo Fecha   Usuario \n',
     'format_4_str' : '%s %s %s %s \n',
     'detalle_pedido_pattern_header' : 'Código    Nombre         Cantidad \n',
-    'detalle_pedido_pattern' : '%s %s %d %s \n',
+    'detalle_pedido_pattern' : '    %s %s %d \n',
     'pedido_pattern' : '''
     Código: %s
     Fecha: %s
@@ -361,13 +361,11 @@ class ES:
     Modificar:
     1. Descripcion
     2. Agregar producto o receta
-    3. Modificar cantidad
-    4. Eliminar receta o producto
-    5. <-Atras
+    3. <-Atras
     Seleccione una opción: ''',
     'menu_day_chef' : '''
     Menú del día
-    1. Ver mejores recetas
+    1. Ver mejor receta
     2. Ver menu
     3. Activar/Desactivar producto en menú
     4. Activar/Desactivar receta en menú
@@ -375,7 +373,7 @@ class ES:
     Seleccione una opción: ''',
     'menu_day_admin' : '''
     Menú del día
-    1. Ver mejores recetas
+    1. Ver mejor receta
     2. Ver menu
     3. Activar/Desactivar producto en menú
     4. Activar/Desactivar receta en menú
@@ -383,7 +381,7 @@ class ES:
     Seleccione una opción: ''',
     'menu_day_user' : '''
     Menú del día
-    1. Ver mejores recetas
+    1. Ver mejor receta
     2. Ver menu
     3. <-Atras
     Seleccione una opción: ''',
@@ -397,8 +395,8 @@ class ES:
     1. Ver calificaciones
     2. Buscar calificación
     3. Eliminar calificación
-    4. Ver mejores recetas
-    5. Ver mejores chef
+    4. Ver mejor recetas
+    5. Ver mejor chef
     6. Calificar un pedido
     7. Editar mis calificaciones
     8. Eliminar mis calificaciones
@@ -407,19 +405,57 @@ class ES:
     'menu_calificacion_chef' : '''
     Menú Calificaciónes
     1. Ver calificaciones
-    2. Ver mejores recetas
-    3. Ver mejores chef
+    2. Ver mejor recetas
+    3. Ver mejor chef
     4. <-Atras
     Seleccione una opción: ''',
     'menu_calificacion_user' : '''
     Menú Calificaciónes
     1. Ver calificaciones
-    2. Ver mejores recetas
-    3. Ver mejores chef
+    2. Ver mejor recetas
+    3. Ver mejor chef
     4. Calificar un pedido
     5. Editar mis calificaciones
     6. Eliminar mis calificaciones
     7. <-Atras
-    Seleccione una opción: '''
-    
+    Seleccione una opción: ''',
+    'str_see_calificacion_header' : 'Codigo  Para     Usuario    puntaje\n',
+    'str_see_calificacion' : '%s %s %s %d \n',
+    'str_see_my_calificacion_header' : 'Codigo  Para         puntaje\n',
+    'str_see_my_calificacion' : '%s %s %d \n',
+    'receta_pattern_user' : '''
+    Código: %s
+    Nombre: %s
+    ''',
+    'rating' : 'Ingrese el puntaje(1 a 5): ',
+    'delete_calificacion' : '''
+    Esta seguro de borrar calificación?
+    1. Si
+    2. No
+    Seleccione una opción: ''',
+    'edit_calificacion' : '''
+    Modificar
+    1. Puntaje
+    2. Descripcion
+    3. <-Atras
+    Seleccione una opción: ''',
+    'search_calificacion' : '''
+    Ver calificacion de:
+    1. Receta
+    2. <-Atras
+    Seleccione una opción: ''',
+    'calificacion_pattern': '''
+    Código: %s
+    Para: %s
+    Puntaje: %d
+    Descripcion: %s
+    ''',
+    'date_start' : 'Ingrese la fecha de partida(dd/mm/yyyy): ',
+    'date_end' : 'Ingrese la fecha de llegada(dd/mm/yyyy): ',
+    'str_summary' : 'Nombre      Cantidad \n',
+    'new_calificacion' : '''
+    1. Ver pedidos que no han sido calificados
+    2. Calificar pedido
+    3. <-Atras
+    Seleccione una opción: ''',
     }

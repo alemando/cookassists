@@ -1,6 +1,8 @@
-import datetime
+from datetime import datetime
 from detallePedido import DetallePedido
 from languageEN import EN
+from receta import Receta
+
 class Pedido:
 
     ListPedidos = {}
@@ -51,7 +53,7 @@ class Pedido:
     
     def set_date(self, date):
         if date is None:
-            self._date = datetime.datetime.now().strftime("%d/%m/%Y")
+            self._date = datetime.now().strftime("%d/%m/%Y")
         else:
             self._date = date
 
@@ -194,12 +196,10 @@ class Pedido:
     
     @staticmethod
     def see_my_pedido(user):
-        Str = EN.men.get('str_see_pedido_header')
-        
+        Str = EN.men.get('str_see_my_pedido_header')
         for pedido in user.get_pedidos().values():
             code = pedido.get_code().zfill(6)
             date = pedido.get_date()
-            usuario = pedido.get_usuario().get_name()
             chef = pedido.get_chef()
             if chef:
                 chef = pedido.get_chef().get_name()
@@ -210,10 +210,34 @@ class Pedido:
                 ready = EN.men.get('yes')
             else:
                 ready = EN.men.get('no')
-            Str += EN.men.get('str_see_pedido') % (
-                    code, date, ready, usuario, chef)
+            Str += EN.men.get('str_see_my_pedido') % (
+                    code, date, ready, chef)
         return Str
     
+    @staticmethod
+    def see_my_pedido_calificacion(user):
+        Str = EN.men.get('str_see_my_pedido_header')
+        for pedido in user.get_pedidos().values():
+            if not pedido.get_qualified() and pedido.get_ready():
+                code = pedido.get_code().zfill(6)
+                date = pedido.get_date()
+                chef = pedido.get_chef()
+                if chef:
+                    chef = pedido.get_chef().get_name()
+                else:
+                    chef = ''
+                ready = pedido.get_ready()
+                if ready:
+                    ready = EN.men.get('yes')
+                else:
+                    ready = EN.men.get('no')
+                Str += EN.men.get('str_see_my_pedido') % (
+                        code, date, ready, chef)
+        return Str
+
+    
+
+
     @staticmethod
     def get_pedido_by_code(code):
         return Pedido.ListPedidos.get(code)
@@ -225,4 +249,36 @@ class Pedido:
             if pedido.get_date().find(date) != -1:
                 ListCoincidencias.append(pedido)
         return ListCoincidencias
+    
+    @staticmethod
+    def summary(date_start, date_end):
         
+        recetas = {}
+        productos = {}
+        date_start_m = datetime.strptime(date_start,'%d/%m/%Y').timestamp() * 1000
+        date_end_m =datetime.strptime(date_end,'%d/%m/%Y').timestamp() * 1000
+        for pedido in Pedido.ListPedidos.values():
+            date_pedido_m = datetime.strptime(pedido.get_date(),'%d/%m/%Y').timestamp() * 1000
+            if (date_pedido_m >= date_start_m) and (date_pedido_m <= date_end_m):
+                for detalle in pedido.get_detalle_pedidos().values():
+                    para = detalle.get_receta()
+                    if isinstance(para, Receta):
+                        aux = recetas.get(para.get_code())
+                        if aux:
+                            recetas[para.get_code()]['num_times'] = aux.get('num_times') + 1
+                        else:
+                            recetas[para.get_code()] = { 'name': para.get_name(), 'num_times' : 1}
+                    else:
+                        para = detalle.get_producto()
+                        aux = productos.get(para.get_code())
+                        if aux:
+                            productos[para.get_code()]['num_times'] = aux.get('num_times') + 1
+                        else:
+                            productos[para.get_code()] = { 'name': para.get_name(), 'num_times' : 1}
+        Str = EN.men.get('str_summary')
+        for receta in recetas.values():
+            Str += receta.get('name') +' '+ str(receta.get('num_times')) + '\n'
+        for producto in productos.values():
+            Str += producto.get('name') +' '+ str(producto.get('num_times')) + '\n'
+        
+        return Str

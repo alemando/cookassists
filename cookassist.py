@@ -87,7 +87,6 @@ class CookAssist:
         
         return menu.get(option)
 
-
     @staticmethod
     def menu_language():
         option = input(CookAssist.mensaje('menu_language', False))
@@ -117,6 +116,8 @@ class CookAssist:
         Datos.generate_productos()
         Datos.generate_user_chef()
         Datos.generate_receta()
+        Datos.generate_pedidos()
+        Datos.generate_calificaciones()
 
     '''if imprimir is True print a string
         if not return a string
@@ -139,7 +140,6 @@ class CookAssist:
         CookAssist.mensaje('close')
         os._exit(0)
 
-    #Usuario
     @staticmethod
     def menu_usuario():
         menu = {}
@@ -577,7 +577,7 @@ class CookAssist:
                 operator = '+'
             else:
                 operator = '-'
-            quantity = input(CookAssist.mensaje('quantity', False))
+            quantity = int(input(CookAssist.mensaje('quantity', False)))
             producto.change_quantity(quantity, operator)
 
     
@@ -614,7 +614,7 @@ class CookAssist:
             
         elif option == '2':
             name = input(CookAssist.mensaje('name', False))
-            receta = Receta.get_producto_by_name(name)
+            receta = Receta.get_receta_by_name(name)
             if len(receta) != 0:
                 Str = CookAssist.mensaje('search_receta_header', False)
                 for i in range(len(receta)):
@@ -752,11 +752,10 @@ class CookAssist:
                 '1': CookAssist.see_pedido,
                 '2': CookAssist.search_pedido,
                 '3': CookAssist.edit_pedido,
-                '4': CookAssist.delete_pedido,
-                '5': CookAssist.see_pending_pedido,
-                '6': CookAssist.take_pedido,
-                '7': CookAssist.see_take_pedido,
-                '8': CookAssist.ready_pedido
+                '4': CookAssist.see_pending_pedido,
+                '5': CookAssist.take_pedido,
+                '6': CookAssist.see_take_pedido,
+                '7': CookAssist.ready_pedido
             }
             option = input(CookAssist.mensaje('menu_pedido_chef', False))
         elif CookAssist.user.get_admin():
@@ -766,9 +765,8 @@ class CookAssist:
                 '3': CookAssist.search_pedido,
                 '4': CookAssist.new_pedido,
                 '5': CookAssist.edit_pedido,
-                '6': CookAssist.delete_pedido,
-                '7': CookAssist.see_pending_pedido,
-                '8': CookAssist.generate_a_summary_pedido
+                '6': CookAssist.see_pending_pedido,
+                '7': CookAssist.generate_a_summary_pedido
             }
             option = input(CookAssist.mensaje('menu_pedido_admin', False))
         else:
@@ -834,15 +832,6 @@ class CookAssist:
             elif option == '2':
                 detalle_pedido = CookAssist.add_detalle_pedido()
                 pedido.add_more_detalle_pedido(detalle_pedido)
-            elif option == '3':
-                code = input(CookAssist.mensaje('code', False))
-                quantity = input(CookAssist.mensaje('quantity', False))
-                detalle = self.get_detalle_pedidos.get(code)
-                detalle.set_quantity(quantity)
-                #revisar disponibilidad
-            elif option == '4':
-                code = input(CookAssist.mensaje('code', False))
-                DetallePedido.delete_detalle(code)
 
     @staticmethod
     def add_detalle_pedido():
@@ -872,13 +861,22 @@ class CookAssist:
                 for i in range(len(detalle)):
                     num = str(i + 1)
                     quantity = str(detalle[i].get('quantity')).zfill(7) 
-                    name = detalle[i].get('producto').get_name()
+                    name = detalle[i].get('detalle').get_name()
                     Str += CookAssist.mensaje('format_3_str', False) % (
                         num, quantity, name)
                 print(Str)
-                opcion_detalle = int(input(CookAssist.mensaje('option', False)))
-                quantity = input(CookAssist.mensaje('quantity', False))
-                detalle[opcion_detalle-1]['quantity'] = quantity
+                option_detalle = int(input(CookAssist.mensaje('option', False)))
+                quantity = int(input(CookAssist.mensaje('quantity', False)))
+                detalle = detalle[option_detalle-1].get('detalle')
+                check = False
+                if isinstance(detalle, Producto):
+                    check = producto.check_producto(quantity)
+                else:
+                    check = receta.check_receta(quantity)
+                if check is True:
+                    detalle[option_detalle-1]['quantity'] = quantity
+                else:
+                    print(check)
             elif option == '4':
                 Str = CookAssist.mensaje('detalle_pedido_header', False)
                 for i in range(len(detalle)):
@@ -893,10 +891,6 @@ class CookAssist:
             
             option = input(CookAssist.mensaje('new_detalle_pedido', False))
         return detalle
-
-    @staticmethod
-    def delete_pedido():
-        pass
 
 
     @staticmethod
@@ -921,7 +915,9 @@ class CookAssist:
 
     @staticmethod
     def generate_a_summary_pedido():
-        pass
+        date_start = input(CookAssist.mensaje('date_start', False))
+        date_end = input(CookAssist.mensaje('date_end', False))
+        print(Pedido.summary(date_start, date_end))
 
     @staticmethod
     def see_my_pedido():
@@ -956,11 +952,7 @@ class CookAssist:
             option = input(CookAssist.mensaje('menu_day_user', False))
         return menu.get(option)
     
-
     @staticmethod
-    def see_best_recetas():
-        pass
-
     def see_menu():
         option = input(CookAssist.mensaje('menu_day_select', False))
         if option == '1':
@@ -974,29 +966,29 @@ class CookAssist:
         option = None
         if CookAssist.chef:
             menu = {
-                '1': CookAssist.see_califacion,
+                '1': CookAssist.search_calificacion,
                 '2': CookAssist.see_best_recetas,
                 '3': CookAssist.see_best_chef
             }
             option = input(CookAssist.mensaje('menu_calificacion_chef', False))
         elif CookAssist.user.get_admin():
             menu = {
-                '1': CookAssist.see_califacion,
+                '1': CookAssist.see_calificacion,
                 '2': CookAssist.search_calificacion,
                 '3': CookAssist.delete_calificacion,
                 '4': CookAssist.see_best_recetas,
                 '5': CookAssist.see_best_chef,
-                '7': CookAssist.pedido_calificacion,
-                '6': CookAssist.edit_my_calificacion,
+                '6': CookAssist.new_calificacion,
+                '7': CookAssist.edit_my_calificacion,
                 '8': CookAssist.delete_my_calificacion
             }
             option = input(CookAssist.mensaje('menu_calificacion_admin', False))
         else:
             menu = {
-                '1': CookAssist.see_califacion,
+                '1': CookAssist.search_calificacion,
                 '2': CookAssist.see_best_recetas,
                 '3': CookAssist.see_best_chef,
-                '4': CookAssist.pedido_calificacion,
+                '4': CookAssist.new_calificacion,
                 '5': CookAssist.edit_my_calificacion,
                 '6': CookAssist.delete_my_calificacion
             }
@@ -1005,31 +997,95 @@ class CookAssist:
         
     @staticmethod
     def see_best_chef():
-        pass
+        print(Calificacion.best_chef())
     
     @staticmethod
-    def see_califacion():
-        pass
+    def see_best_recetas():
+        print(Calificacion.best_recetas())
+
+    @staticmethod
+    def see_calificacion():
+        print(Calificacion.see_calificacion())
 
     @staticmethod
     def search_calificacion():
-        pass
+        option = input(CookAssist.mensaje('search_calificacion', False))
+        if option == '1':
+            receta = CookAssist.search_receta_menu()
+            if receta:
+                print(receta.see_calificacion())
+            else:
+                CookAssist.mensaje('code_not_found')
+                
 
     @staticmethod
     def delete_calificacion():
-        pass
+        code = input(CookAssist.mensaje('code', False))
+        calificacion = Calificacion.get_calificacion_by_code(code)
+        if calificacion:
+            print(calificacion)
+            option = input(CookAssist.mensaje('delete_calificacion', False))
+            if option == '1':
+                calificacion.delete()
+        else:
+            CookAssist.mensaje('code_not_found')
+                
 
     @staticmethod
-    def pedido_calificacion():
-        pass
+    def new_calificacion():
+        option = input(CookAssist.mensaje('new_calificacion', False))
+        if option == '1':
+            print(Pedido.see_my_pedido_calificacion(CookAssist.user))
+        elif option == '2':
+            code = input(CookAssist.mensaje('code', False))
+            pedido = Pedido.get_pedido_by_code(code)
+            if pedido:
+                pedido.set_qualified(True)
+                print(pedido)
+                print (pedido.get_chef().get_name())
+                rating = input(CookAssist.mensaje('rating', False))
+                description = input(CookAssist.mensaje('description', False))
+                Calificacion(CookAssist.user, rating, description, pedido.get_chef())
+                for detalle in pedido.get_detalle_pedidos().values():
+                    aux = detalle.get_receta()
+                    if isinstance(aux, Receta):
+                        print(aux.str_user())
+                        rating = input(CookAssist.mensaje('rating', False))
+                        description = input(CookAssist.mensaje('description', False))
+                        Calificacion(CookAssist.user, rating, description, aux)
+
+            else:
+                CookAssist.mensaje('code_not_found')
 
     @staticmethod
     def edit_my_calificacion():
-        pass
+        print(Calificacion.see_my_calificacion(CookAssist.user))
+        code = input(CookAssist.mensaje('code', False))
+        calificacion = Calificacion.get_calificacion_by_code_user(CookAssist.user, code)
+        if calificacion:
+            print(calificacion)
+            option = input(CookAssist.mensaje('edit_calificacion', False))
+            if option == '1':
+                rating = input(CookAssist.mensaje('rating', False))
+                calificacion.set_rating(rating)
+            elif option == '2':
+                description = input(CookAssist.mensaje('description', False))
+                calificacion.set_description(description)
+        else:
+            CookAssist.mensaje('code_not_found')
 
     @staticmethod
     def delete_my_calificacion():
-        pass
+        print(Calificacion.see_my_calificacion(CookAssist.user))
+        code = input(CookAssist.mensaje('code', False))
+        calificacion = Calificacion.get_calificacion_by_code_user(CookAssist.user, code)
+        if calificacion:
+            print(calificacion)
+            option = input(CookAssist.mensaje('delete_calificacion', False))
+            if option == '1':
+                calificacion.delete()
+        else:
+            CookAssist.mensaje('code_not_found')
 
     @staticmethod
     def run():

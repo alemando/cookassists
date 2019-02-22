@@ -74,12 +74,13 @@ class Usuario:
     def set_pedidos(self, pedido):
         self._ListPedidos[pedido.get_code()] = pedido
 
+    def get_pedidos(self):
+        return self._ListPedidos
+
     def set_promote_pedidos(self, pedidos):
         for pedido in pedidos:
             pedido.set_usuario(self)
 
-    def get_pedidos(self):
-        return self._ListPedidos
 
     
 

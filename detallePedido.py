@@ -20,9 +20,11 @@ class DetallePedido:
         if isinstance(detalle, Receta):
             detalle.change_quantity_to_producto(quantity,'-')
             self.set_receta(detalle)
+            self.set_producto(None)
         else:
             detalle.change_quantity(quantity,'-')
             self.set_producto(detalle)
+            self.set_receta(None)
         self.set_pedido(pedido)
         DetallePedido.ListDetallePedidos[self.get_code()] = self
 
@@ -48,41 +50,33 @@ class DetallePedido:
     
     def set_receta(self, receta):
         self._receta = receta
-        receta.set_detalle_pedidos(self)
+        if receta:
+            receta.set_detalle_pedidos(self)
 
     def get_receta(self):
         return self._receta
     
     def set_producto(self, producto):
         self._producto = producto
-        
-        producto.set_detalle_pedidos(self)
+        if producto:
+            producto.set_detalle_pedidos(self)
 
     def get_producto(self):
         return self._producto
     
     def __str__(self):
         code = self.get_code()
-        producto_o_receta = null
+        producto_o_receta = None
         if  self.get_producto():
             producto_o_receta = self.get_producto()
         else:
             producto_o_receta = self.get_receta()
-        name = producto_o_receta.get_nombre()
+        name = producto_o_receta.get_name()
         quantity = self.get_quantity()
-        Str = Mensajes.men.get('detalle_pedido_pattern') % (
+        Str = EN.men.get('detalle_pedido_pattern') % (
             code, name, quantity) 
         return Str
     
-    @staticmethod
-    def delete_detalle(code):
-        detalle = DetallePedido.ListDetallePedidos.pop(code)
-        detalle.get_pedido().get_detalle_pedidos().pop(code)
-        if detalle.get_producto() is not None:
-            detalle.get_producto().get_detalle_pedidos().pop(code)
-        if detalle.get_receta() is not None:
-            detalle.get_receta().get_detalle_pedidos().pop(code)
-        #debo sumar lo que quite al crear
         
 
 
